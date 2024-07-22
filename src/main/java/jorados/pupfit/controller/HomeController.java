@@ -1,4 +1,4 @@
-package jorados.pupfit;
+package jorados.pupfit.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
