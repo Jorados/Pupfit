@@ -20,6 +20,7 @@
     <h2 id="3.5">Infra</h2>
   </summary>
   <div>
+   <img src="https://github.com/user-attachments/assets/2f3a9e88-5268-4f70-ae27-668bee93e46f" alt="Infra Image">
   </div>
 </details>
 
