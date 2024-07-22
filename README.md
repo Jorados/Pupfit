@@ -29,7 +29,7 @@
     <h2 id="3.5">ERD</h2>
   </summary>
   <div>
-    <img src="https://github.com/user-attachments/assets/7c75605d-3b67-4a1e-a27e-31cfed77b1a1" alt="ERD Image">
+    <img src="https://github.com/user-attachments/assets/14654701-36b5-4f02-9987-2027112faba6" alt="ERD Image">
   </div>
 </details>
 
