@@ -5,7 +5,7 @@
  - 제목 : 퍼핏 Purfit
  - 개발기간 : 2024-08 ~ 2024-09      
 
-### 개발환경 (개인 프로젝트)   
+### 개발 환경 (개인 프로젝트)   
  - Back : Java / SpringBoot / Jpa / Mysql    
  - Front : Vue.js  
  - Infra : Aws Ec2 / Nginx / Docker / Github Action (CI/CD 파이프라인 구축)
