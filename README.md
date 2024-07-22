@@ -10,6 +10,11 @@
  - Front : Vue.js  
  - Infra : Aws Ec2 / Nginx / Docker / Github Action (CI/CD 파이프라인 구축)
 
+### 개발 포커싱
+ - Back : 인증,인가 / 에러처리 / 유효성 / API 최적화 / 테스트 / 디버깅
+ - Front : Vue.js 익히기
+ - Infra : dockerfile, docker compose 완벽 마스터 / github Action 성공하기
+
 <details>
   <summary>
     <h2 id="3.5">Infra</h2>
