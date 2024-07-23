@@ -2,6 +2,7 @@ package jorados.pupfit.entity;
 
 
 import jakarta.persistence.*;
+import jorados.pupfit.dto.request.UserRequest;
 import jorados.pupfit.entity.type.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,4 +51,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserPuppy> user_puppy;
+
+    public void edit(UserRequest userRequest){
+        this.gender = userRequest.getGender();
+        this.nickname = userRequest.getNickname();
+    }
 }

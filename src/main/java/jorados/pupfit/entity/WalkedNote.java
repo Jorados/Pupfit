@@ -2,6 +2,7 @@ package jorados.pupfit.entity;
 
 
 import jakarta.persistence.*;
+import jorados.pupfit.dto.WalkedNoteDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,15 +27,15 @@ public class WalkedNote {
     @Column(name = "walked_note_id")
     private Long id;
 
-    private Date walked_date; // 산책 날짜
+    private Date walkedDate; // 산책 날짜
 
-    private String walked_content; // 산책 내용
+    private String walkedContent; // 산책 내용
 
     private boolean walked; // 걷기 유무
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_puppy_id")
-    private UserPuppy user_puppy;
+    private UserPuppy userPuppy;
 
     @CreatedDate
     @Column(name="created_at" , updatable = false)
@@ -43,5 +44,11 @@ public class WalkedNote {
     @LastModifiedDate
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
+
+    public void edit(WalkedNoteDto walkedNoteDto){
+        this.walked = walkedNoteDto.isWalked();
+        this.walkedContent = walkedNoteDto.getWalkedContent();
+        this.walkedDate = walkedNoteDto.getWalkedDate();
+    }
 
 }

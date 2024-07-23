@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// 회원과 강아지의 결합 정보를 저장하기 위한 테이블
 @Entity
 @Getter
 @NoArgsConstructor
@@ -30,7 +31,7 @@ public class UserPuppy {
     @Column(name="user_puppy_id")
     private Long id; // DB 넘버
 
-    private String puppy_name;
+    private String puppyName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "puppy_id", nullable = false)
@@ -40,8 +41,8 @@ public class UserPuppy {
     @JoinColumn(name = "user_Id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "user_puppy", cascade = CascadeType.ALL)
-    private List<WalkedNote> walked_note = new ArrayList<>();
+    @OneToMany(mappedBy = "userPuppy", cascade = CascadeType.ALL)
+    private List<WalkedNote> walkedNote = new ArrayList<>();
 
     @CreatedDate
     @Column(name="created_at" , updatable = false)

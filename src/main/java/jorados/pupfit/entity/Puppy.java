@@ -1,6 +1,7 @@
 package jorados.pupfit.entity;
 
 import jakarta.persistence.*;
+import jorados.pupfit.dto.PuppyDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,11 +30,22 @@ public class Puppy {
     @Column(name = "puppy_id", nullable = false)
     private Long id;
 
-    private String puppy_name; // 이름
-    private String puppy_type; // 종
-    private String img_url; // 이미지
-    private Date walk_low; // 산책 시작 시간
-    private Date walk_high; // 산책 마감 시간
+    @Column(name = "puppy_name")
+    private String puppyName; // 이름
+
+    @Column(name = "puppy_type")
+    private String puppyType; // 종
+
+    @Column(name = "img_url")
+    private String imgUrl; // 이미지
+
+    @Column(name = "walk_low")
+    private Date walkLow; // 산책 시작 시간
+
+    @Column(name = "walk_high")
+    private Date walkHigh; // 산책 마감 시간
+
+    @Column(name = "personality")
     private String personality; // 성격
 
     @CreatedDate
@@ -46,5 +58,14 @@ public class Puppy {
 
     @OneToMany(mappedBy = "puppy",cascade = CascadeType.ALL)
     private List<UserPuppy> user_puppy;
+
+    public void edit(PuppyDto puppyDto){
+        this.puppyName = puppyDto.getPuppyName();
+        this.puppyType = puppyDto.getPuppyType();
+        this.imgUrl = puppyDto.getImgUrl();
+        this.personality = puppyDto.getPersonality();
+        this.walkLow = puppyDto.getWalkLow();
+        this.walkHigh = puppyDto.getWalkHigh();
+    }
 
 }
