@@ -37,7 +37,8 @@
   <summary>
     <h2 id="3.5">WBS</h2>
   </summary>
-  <div>
-    
+  <div markdown="1">
+    <a href="https://docs.google.com/spreadsheets/d/1KEkGEi-fi5gdrkNSYQRUjMK8F_ldH1ck/edit?usp=drive_link&ouid=114989303808624482632&rtpof=true&sd=true">WBS 확인하기</a>
   </div>
 </details>
+
