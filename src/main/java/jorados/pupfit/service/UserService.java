@@ -7,6 +7,7 @@ import jorados.pupfit.dto.response.UserResponse;
 import jorados.pupfit.entity.User;
 import jorados.pupfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +17,16 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
 
-    // 회원 생성
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    // 회원 생성 (가입)
     @Transactional
     public void createUser(UserDto userDto){
         User user = User.builder()
                 .username(userDto.getUsername())
-                .password(userDto.getPassword())
+                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .nickname(userDto.getNickname())
                 .gender(userDto.getGender())
                 .build();
