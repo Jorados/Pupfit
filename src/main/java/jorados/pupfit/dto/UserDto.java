@@ -11,15 +11,15 @@ import lombok.Data;
 @Builder
 public class UserDto {
 
-    @NotBlank
+    //@NotBlank
     private String username; // 시큐리티 로그인 ID
 
-    @NotBlank
+    //@NotBlank
     private String password; // 암호
 
-    @NotBlank
+    //@NotBlank
     private String nickname; // 닉네임
 
-    @NotBlank
+    //@NotBlank
     private Gender gender; // 성별 ("M","W")
 }

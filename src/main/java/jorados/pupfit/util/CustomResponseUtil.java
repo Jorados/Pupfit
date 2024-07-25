@@ -14,10 +14,10 @@ public class CustomResponseUtil {
 
     private static final Logger log = LoggerFactory.getLogger(CustomResponseUtil.class);
 
-    public static void success(HttpServletResponse response, Object dto) {
+    public static void success(HttpServletResponse response,String msg, Object dto) {
         try {
             ObjectMapper om = new ObjectMapper();
-            ResponseDto<?> responseDto = new ResponseDto<>(1, "로그인성공", dto);
+            ResponseDto<?> responseDto = new ResponseDto<>(1, msg, dto);
             String responseBody = om.writeValueAsString(responseDto);
             response.setContentType("application/json; charset=utf-8");
             response.setStatus(200);

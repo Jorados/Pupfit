@@ -35,7 +35,7 @@ public class User {
     @Column(nullable = false, length = 60)
     private String password; // 암호
 
-    @Column(nullable = false, length = 20)
+    @Column(length = 20)
     private String nickname; // 닉네임
 
     @Enumerated(EnumType.STRING)

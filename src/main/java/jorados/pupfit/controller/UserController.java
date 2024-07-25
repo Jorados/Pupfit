@@ -1,5 +1,6 @@
 package jorados.pupfit.controller;
 
+import jakarta.validation.Valid;
 import jorados.pupfit.dto.UserDto;
 import jorados.pupfit.dto.response.UserResponse;
 import jorados.pupfit.entity.User;
@@ -20,8 +21,8 @@ public class UserController {
     // 회원가입 -> 구현해야함 (시큐리티 적용 이후에.)
     // 로그인, 로그아웃 -> 시큐리티 기능 사용
     @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody UserDto userDto){
-        userService.createUser(userDto);
+    public ResponseEntity<?> join(@RequestBody User user){
+        userService.createUser(user);
         return ResponseEntity.status(HttpStatus.OK).body("회원 생성 완료");
     }
 

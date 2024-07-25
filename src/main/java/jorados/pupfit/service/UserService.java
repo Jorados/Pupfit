@@ -23,12 +23,12 @@ public class UserService {
 
     // 회원 생성 (가입)
     @Transactional
-    public void createUser(UserDto userDto){
+    public void createUser(User userDto){
         User user = User.builder()
                 .username(userDto.getUsername())
                 .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                .nickname(userDto.getNickname())
-                .gender(userDto.getGender())
+//                .nickname(userDto.getNickname())
+//                .gender(userDto.getGender())
                 .build();
         userRepository.save(user);
     }
