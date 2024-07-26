@@ -22,7 +22,7 @@ import java.io.IOException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-// 로그인 -> 토큰생성해서 전달
+// 권한 요청 -> 인증이 필요한 요청에 대한 인가
 @Slf4j
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {  //권한 허가 필터
@@ -38,6 +38,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {  //권�
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader(JwtProperties.HEADER_STRING);
+
         log.info("인증이나 권한이  필요한 주소 요청이 됨.");
         log.info("jwtHeader = {}",header);
 

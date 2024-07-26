@@ -26,11 +26,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("회원 생성 완료");
     }
 
-
-
     // 조회
-    @GetMapping("/read/{userId}")
-    public ResponseEntity<?> readUser(@PathVariable Long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> readUser(@PathVariable("userId") Long userId) {
         UserResponse userResponse = userService.readUser(userId);
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }

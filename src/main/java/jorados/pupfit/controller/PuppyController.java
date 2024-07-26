@@ -35,23 +35,23 @@ public class PuppyController {
     }
 
     // 특정 강아지 조회
-    @GetMapping("/{puppy_id}")
-    public ResponseEntity<?> readPuppy(@PathVariable Long puppy_id){
-        PuppyDto puppyDto = puppyService.readPuppyById(puppy_id);
+    @GetMapping("/{puppyId}")
+    public ResponseEntity<?> readPuppy(@PathVariable("puppyId") Long puppyId){
+        PuppyDto puppyDto = puppyService.readPuppyById(puppyId);
         return ResponseEntity.status(HttpStatus.OK).body(puppyDto);
     }
 
     // 강아지 정보 수정
-    @PatchMapping("/{puppy_id}")
-    public ResponseEntity<?> updatePuppy(@PathVariable Long puppy_id, @RequestBody PuppyDto puppyDto){
-        puppyService.updatePuppyById(puppy_id,puppyDto);
+    @PatchMapping("/{puppyId}")
+    public ResponseEntity<?> updatePuppy(@PathVariable Long puppyId, @RequestBody PuppyDto puppyDto){
+        puppyService.updatePuppyById(puppyId,puppyDto);
         return ResponseEntity.status(HttpStatus.OK).body(puppyDto);
     }
 
     // 강아지 정보 삭제
-    @DeleteMapping("/{puppy_id}")
-    public ResponseEntity<?> deletePuppy(@PathVariable Long puppy_id){
-        puppyService.deletePuppyById(puppy_id);
+    @DeleteMapping("/{puppyId}")
+    public ResponseEntity<?> deletePuppy(@PathVariable Long puppyId){
+        puppyService.deletePuppyById(puppyId);
         return ResponseEntity.status(HttpStatus.OK).body("정상적으로 삭제 되었습니다.");
     }
 

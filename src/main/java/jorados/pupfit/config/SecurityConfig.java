@@ -73,10 +73,12 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/profile").permitAll()
-                        .requestMatchers("/api/user/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/user/join").permitAll()
+                        .requestMatchers("/api/user/**").authenticated()
+                        .requestMatchers("/api/puppy/**").authenticated()
+                        .requestMatchers("/api/userPuppy/**").authenticated()
+                        .requestMatchers("/api/walkedNote/**").authenticated()
                         .anyRequest().permitAll()
-
                 );
 
         return http.build();
