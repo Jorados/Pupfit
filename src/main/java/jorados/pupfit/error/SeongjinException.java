@@ -16,10 +16,4 @@ public abstract class SeongjinException extends RuntimeException{
     }
 
     public abstract int getStatusCode();
-
-    public void addValidation(String fieldName, String message){
-        validation.put(fieldName,message);
-    }
-
-
 }
