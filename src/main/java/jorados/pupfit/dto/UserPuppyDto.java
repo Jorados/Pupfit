@@ -14,12 +14,9 @@ import lombok.Data;
 public class UserPuppyDto {
 
     private Long id;
-
+    private Long userId;
     @NotBlank
     private String puppyName;
-
-    @NotBlank
-    private Long userId;
 
     @NotBlank
     private Long puppyId;

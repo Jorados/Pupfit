@@ -7,6 +7,10 @@ public abstract class SeongjinException extends RuntimeException{
 
     private final Map<String,String> validation = new HashMap<>();
 
+    public SeongjinException() {
+        super();
+    }
+
     public SeongjinException(String message) {
         super(message);
     }

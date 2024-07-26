@@ -2,15 +2,14 @@ package jorados.pupfit.service;
 
 import jorados.pupfit.dto.PuppyDto;
 import jorados.pupfit.entity.Puppy;
+import jorados.pupfit.error.CustomNotFoundException;
 import jorados.pupfit.repository.PuppyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,7 +54,7 @@ public class PuppyService {
 
     // 특정 강아지 조회
     public PuppyDto readPuppyById(Long puppyId){
-        Puppy puppy = puppyRepository.findById(puppyId).orElseThrow(() -> new IllegalArgumentException("없는 값"));
+        Puppy puppy = puppyRepository.findById(puppyId).orElseThrow(() -> new CustomNotFoundException("강아지 정보를"));
 
         PuppyDto puppyDto =PuppyDto.builder()
                 .id(puppy.getId())
@@ -72,7 +71,7 @@ public class PuppyService {
     // 강아지 정보 수정
     @Transactional
     public void updatePuppyById(Long puppyId, PuppyDto puppyDto){
-        Puppy findPuppy = puppyRepository.findById(puppyId).orElseThrow(() -> new IllegalArgumentException("없는 값."));
+        Puppy findPuppy = puppyRepository.findById(puppyId).orElseThrow(() -> new CustomNotFoundException("강아지 정보를"));
 
         // JPA 의 더티체킹(변경감지)
         // JPA는 영속성 컨텍스트(Persistence Context)를 통해 엔티티의 변경 사항을 자동으로 감지하고, 트랜잭션이 종료될 때 자동으로 변경된 내용을 데이터베이스에 반영한다.
@@ -82,7 +81,7 @@ public class PuppyService {
     // delete
     @Transactional
     public void deletePuppyById(Long puppyId){
-        Puppy findPuppy = puppyRepository.findById(puppyId).orElseThrow(() -> new IllegalArgumentException("없는 값."));
+        Puppy findPuppy = puppyRepository.findById(puppyId).orElseThrow(() -> new CustomNotFoundException("강아지 정보를"));
         puppyRepository.delete(findPuppy);
     }
 

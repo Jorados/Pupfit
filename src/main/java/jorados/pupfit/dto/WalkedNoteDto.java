@@ -1,6 +1,9 @@
 package jorados.pupfit.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jorados.pupfit.entity.Puppy;
+import jorados.pupfit.entity.User;
+import jorados.pupfit.entity.UserPuppy;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +25,6 @@ public class WalkedNoteDto {
 
     @NotBlank
     private boolean walked;
+
+    private UserPuppy userPuppy;
 }

@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface WalkedNoteRepository extends JpaRepository<WalkedNote, Long> {
 
+    WalkedNote findByUserPuppyId(Long userPuppyId);
+
 }

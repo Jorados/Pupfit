@@ -4,7 +4,7 @@ import jorados.pupfit.dto.UserPuppyDto;
 import jorados.pupfit.entity.Puppy;
 import jorados.pupfit.entity.User;
 import jorados.pupfit.entity.UserPuppy;
-import jorados.pupfit.error.UserNotFoundException;
+import jorados.pupfit.error.CustomNotFoundException;
 import jorados.pupfit.repository.PuppyRepository;
 import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.UserRepository;
@@ -24,14 +24,14 @@ public class UserPuppyService {
 
     // 생성 ( 회원이 강아지를 기르게 되는 경우 )
     @Transactional
-    public void createUserPuppy(Long userId, Long puppyId, String puppyName) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
-        Puppy findPuppy = puppyRepository.findById(puppyId).orElseThrow(() -> new IllegalArgumentException());
+    public void createUserPuppy(Long userId, UserPuppyDto userPuppyDto) {
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
+        Puppy findPuppy = puppyRepository.findById(userPuppyDto.getPuppyId()).orElseThrow(() -> new CustomNotFoundException("강아지 정보를"));
 
         UserPuppy userPuppy = UserPuppy.builder()
                 .user(findUser)
                 .puppy(findPuppy)
-                .puppyName(puppyName)
+                .puppyName(userPuppyDto.getPuppyName())
                 .build();
 
         userPuppyRepository.save(userPuppy);
@@ -39,8 +39,12 @@ public class UserPuppyService {
 
     // 모두 조회 ( 회원 정보로만 정회 )
     public List<UserPuppyDto> readAllByUserId(Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
         List<UserPuppy> findUserPuppy = userPuppyRepository.findByUser(findUser);
+
+        if(findUserPuppy.isEmpty()){
+            throw new CustomNotFoundException("유저-강아지 정보를");
+        }
 
         return findUserPuppy.stream().map(userPuppy->{
             UserPuppyDto userPuppyDto = UserPuppyDto.builder()
@@ -55,7 +59,7 @@ public class UserPuppyService {
 
     // 특정 데이터 조회 ( 회원아이디랑 강아지아이디랑 다 필요 )
     public UserPuppyDto readById(Long userPuppyId) {
-        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new IllegalArgumentException());
+        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보를"));
         UserPuppyDto userPuppyDto = UserPuppyDto.builder()
                 .puppyId(findUserPuppy.getPuppy().getId())
                 .userId(findUserPuppy.getUser().getId())
@@ -73,7 +77,7 @@ public class UserPuppyService {
     // 데이터 삭제 ( 해당 user 혹은 puppy 가 삭제될 경우 )
     @Transactional
     public void deleteUserPuppy(Long userPuppyId) {
-        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new IllegalArgumentException());
+        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보를"));
         userPuppyRepository.delete(findUserPuppy);
     }
 }

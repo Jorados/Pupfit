@@ -5,8 +5,8 @@ import jorados.pupfit.dto.UserDto;
 import jorados.pupfit.dto.request.UserRequest;
 import jorados.pupfit.dto.response.UserResponse;
 import jorados.pupfit.entity.User;
+import jorados.pupfit.error.CustomNotFoundException;
 import jorados.pupfit.error.DuplicateException;
-import jorados.pupfit.error.UserNotFoundException;
 import jorados.pupfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class UserService {
 
     // 특정 회원 조회
     public UserResponse readUser(Long userId){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
 
         return UserResponse.builder()
                 .gender(findUser.getGender())
@@ -69,14 +69,14 @@ public class UserService {
     // 회원 정보 수정
     @Transactional
     public void updateUser(Long userId, UserRequest userRequest){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
         findUser.edit(userRequest);
     }
 
     // 회원 삭제
     @Transactional
     public void deleteUser(Long userId){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
         userRepository.delete(findUser);
     }
 
