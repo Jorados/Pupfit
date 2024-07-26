@@ -4,6 +4,7 @@ import jorados.pupfit.dto.UserPuppyDto;
 import jorados.pupfit.entity.Puppy;
 import jorados.pupfit.entity.User;
 import jorados.pupfit.entity.UserPuppy;
+import jorados.pupfit.error.UserNotFoundException;
 import jorados.pupfit.repository.PuppyRepository;
 import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.UserRepository;
@@ -24,7 +25,7 @@ public class UserPuppyService {
     // 생성 ( 회원이 강아지를 기르게 되는 경우 )
     @Transactional
     public void createUserPuppy(Long userId, Long puppyId, String puppyName) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException());
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
         Puppy findPuppy = puppyRepository.findById(puppyId).orElseThrow(() -> new IllegalArgumentException());
 
         UserPuppy userPuppy = UserPuppy.builder()
@@ -38,7 +39,7 @@ public class UserPuppyService {
 
     // 모두 조회 ( 회원 정보로만 정회 )
     public List<UserPuppyDto> readAllByUserId(Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException());
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
         List<UserPuppy> findUserPuppy = userPuppyRepository.findByUser(findUser);
 
         return findUserPuppy.stream().map(userPuppy->{
