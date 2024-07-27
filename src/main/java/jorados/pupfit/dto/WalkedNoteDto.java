@@ -1,16 +1,12 @@
 package jorados.pupfit.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jorados.pupfit.entity.Puppy;
-import jorados.pupfit.entity.User;
-import jorados.pupfit.entity.UserPuppy;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +17,8 @@ public class WalkedNoteDto {
     private Long id;
 
 //    @NotBlank
-    private Date walkedDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime walkedDate; // 산책 시간 ex) 2024-07-27 10:30:00
 
 //    @NotBlank
     private String walkedContent;

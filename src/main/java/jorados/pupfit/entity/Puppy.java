@@ -1,5 +1,6 @@
 package jorados.pupfit.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jorados.pupfit.dto.PuppyDto;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import java.time.LocalDateTime;
@@ -39,21 +41,23 @@ public class Puppy {
     @Column(name = "img_url")
     private String imgUrl; // 이미지
 
-    @Column(name = "walk_low")
-    private Date walkLow; // 산책 시작 시간
+    @Column(name = "walk_low", columnDefinition = "TIME")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime walkLow; // 산책 시작 시간
 
-    @Column(name = "walk_high")
-    private Date walkHigh; // 산책 마감 시간
+    @Column(name = "walk_high", columnDefinition = "TIME")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime walkHigh; // 산책 마감 시간
 
     @Column(name = "personality")
     private String personality; // 성격
 
     @CreatedDate
-    @Column(name="created_at" , updatable = false)
+    @Column(name="created_at" , updatable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name="updated_at")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "puppy",cascade = CascadeType.ALL)

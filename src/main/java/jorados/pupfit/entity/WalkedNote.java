@@ -1,6 +1,7 @@
 package jorados.pupfit.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jorados.pupfit.dto.WalkedNoteDto;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -27,7 +29,9 @@ public class WalkedNote {
     @Column(name = "walked_note_id")
     private Long id;
 
-    private Date walkedDate; // 산책 날짜
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @Column(columnDefinition = "TIME")
+    private LocalTime walkedDate; // 산책 시간 ex) 10:30:00
 
     private String walkedContent; // 산책 내용
 
@@ -38,11 +42,11 @@ public class WalkedNote {
     private UserPuppy userPuppy;
 
     @CreatedDate
-    @Column(name="created_at" , updatable = false)
+    @Column(name="created_at" , updatable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name="updated_at")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
     public void edit(WalkedNoteDto walkedNoteDto){

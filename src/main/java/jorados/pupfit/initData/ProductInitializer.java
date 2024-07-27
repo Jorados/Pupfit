@@ -11,11 +11,13 @@ import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.UserRepository;
 import jorados.pupfit.repository.WalkedNoteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -29,14 +31,9 @@ public class ProductInitializer {
     private final UserPuppyRepository userPuppyRepository;
     private final WalkedNoteRepository walkedNoteRepository;
 
-    private static Date createTime(int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0); // 밀리초를 0으로 설정
-
-        return calendar.getTime();
+    public static LocalTime createTime(int hour, int minute, int second) {
+        LocalTime time = LocalTime.of(hour, minute, second); // 특정 시간
+        return time; // LocalTime 객체 생성
     }
 
 
@@ -59,8 +56,8 @@ public class ProductInitializer {
         userRepository.save(user1);
         userRepository.save(user2);
 
-        Date walkLowTime = createTime(10, 30); // 10:30 시간만 설정
-        Date walkHighTime = createTime(18, 30); // 18:30 시간만 설정
+        LocalTime walkLowTime = createTime(10, 30, 00); // 10:30 시간만 설정
+        LocalTime walkHighTime = createTime(18, 30, 00); // 18:30 시간만 설정
 
         Puppy puppy1 = Puppy.builder()
                 .puppyName("푸들")

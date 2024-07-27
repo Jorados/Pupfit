@@ -42,11 +42,11 @@ public class User {
     private Gender gender; // 성별 ("M","W")
 
     @CreatedDate
-    @Column(name="created_at" , updatable = false)
+    @Column(name="created_at" , updatable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name="updated_at")
+    @Column(name="updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

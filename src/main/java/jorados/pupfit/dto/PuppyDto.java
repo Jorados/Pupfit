@@ -1,6 +1,7 @@
 package jorados.pupfit.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jorados.pupfit.entity.Puppy;
@@ -9,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -29,10 +32,12 @@ public class PuppyDto {
     private String imgUrl;
 
 //    @NotBlank
-    private Date walkLow;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime walkLow;
 
 //    @NotBlank
-    private Date walkHigh;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime walkHigh;
 
 //    @NotNull
     private String personality;
