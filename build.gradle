@@ -28,8 +28,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.2'
 
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.2' //Jwt
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2' //Swagger
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
