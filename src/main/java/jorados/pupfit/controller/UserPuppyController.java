@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserPuppyController {
 
     // 생성
     @PostMapping("/create")
-    public ResponseEntity<?> createUserPuppy(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody UserPuppyDto userPuppyDto) {
+    public ResponseEntity<?> createUserPuppy(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody @Validated UserPuppyDto userPuppyDto) {
         userPuppyService.createUserPuppy(principalDetails.getUser().getId(), userPuppyDto);
         return ResponseEntity.status(HttpStatus.OK).body("유저강아지 공통정보가 성공적으로 생성되었습니다");
     }

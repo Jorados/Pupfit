@@ -4,6 +4,7 @@ import jorados.pupfit.dto.response.ErrorResponse;
 import jorados.pupfit.error.SeongjinException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +16,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 // 애플리케이션의 모든 컨트롤러에 대한 전역 예외 처리를 담당한다.
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    // API 요청 JSON 본문 값이 객체로 변환이 안될때. (@ResponseBody 에 의해 발생하는 예외)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body("HTTP REQUEST 요청이 잘못되었습니다. : " + ex.getMessage());
+    }
 
     //@Valid 예외처리 ( 부모(상세) 예외라서 유효성 관련은 여기걸림 )
     @ExceptionHandler(MethodArgumentNotValidException.class)

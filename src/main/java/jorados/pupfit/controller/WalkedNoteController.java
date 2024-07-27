@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class WalkedNoteController {
 
     // 해당 정보 수정하기
     @PatchMapping("/delete/{walkedNoteId}")
-    public ResponseEntity<?> updateWalkedNoteById(@RequestBody WalkedNoteDto walkedNoteDto) {
+    public ResponseEntity<?> updateWalkedNoteById(@RequestBody @Validated WalkedNoteDto walkedNoteDto) {
         walkedNoteService.updateWalkedNote(walkedNoteDto);
         return ResponseEntity.status(HttpStatus.OK).body("해당 산책 정보가 삭제 되었습니다.");
     }

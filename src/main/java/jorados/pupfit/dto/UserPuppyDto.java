@@ -15,6 +15,7 @@ public class UserPuppyDto {
 
     private Long id;
     private Long userId;
+
     @NotBlank
     private String puppyName;
 

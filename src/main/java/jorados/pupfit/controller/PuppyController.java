@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +23,7 @@ public class PuppyController {
 
     // 강아지 생성
     @PostMapping("/create")
-    public ResponseEntity<?> createPuppy(@RequestBody PuppyDto puppyDto){
+    public ResponseEntity<?> createPuppy(@RequestBody @Validated PuppyDto puppyDto){
         puppyService.save(puppyDto);
         return ResponseEntity.status(HttpStatus.OK).body("성공적으로 강아지가 생성 되었습니다.");
     }
@@ -43,7 +44,7 @@ public class PuppyController {
 
     // 강아지 정보 수정
     @PatchMapping("/{puppyId}")
-    public ResponseEntity<?> updatePuppy(@PathVariable Long puppyId, @RequestBody PuppyDto puppyDto){
+    public ResponseEntity<?> updatePuppy(@PathVariable Long puppyId, @RequestBody @Validated PuppyDto puppyDto){
         puppyService.updatePuppyById(puppyId,puppyDto);
         return ResponseEntity.status(HttpStatus.OK).body(puppyDto);
     }

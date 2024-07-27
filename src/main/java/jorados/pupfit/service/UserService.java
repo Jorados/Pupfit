@@ -2,6 +2,7 @@ package jorados.pupfit.service;
 
 
 import jorados.pupfit.dto.UserDto;
+import jorados.pupfit.dto.request.UserLoginDto;
 import jorados.pupfit.dto.request.UserRequest;
 import jorados.pupfit.dto.response.UserResponse;
 import jorados.pupfit.entity.User;
@@ -27,16 +28,16 @@ public class UserService {
 
     // 회원 생성 (가입)
     @Transactional
-    public void createUser(User requestUser){
-        validateDuplicateMember(requestUser);
+    public void createUser(UserLoginDto loginUser){
+        validateDuplicateMember(loginUser);
 
-        String encPassword = bCryptPasswordEncoder.encode(requestUser.getPassword());
+        String encPassword = bCryptPasswordEncoder.encode(loginUser.getPassword());
 
         User user = User.builder()
-                .username(requestUser.getUsername())
+                .username(loginUser.getUsername())
                 .password(encPassword)
-                .nickname(requestUser.getNickname())
-                .gender(requestUser.getGender())
+                .nickname(loginUser.getNickname())
+                .gender(loginUser.getGender())
                 .build();
         userRepository.save(user);
         log.info("회원 가입 성공");
@@ -81,19 +82,12 @@ public class UserService {
     }
 
     // 회원 중복체크 메서드
-    public void validateDuplicateMember(User user){
+    public void validateDuplicateMember(UserLoginDto user){
         List<User> findUserName = userRepository.findAllByUsername(user.getUsername());
-        User findNickName = userRepository.findByNickName(user.getNickname());
 
         // username (로그인 id) 겹치는 경우
         if(!findUserName.isEmpty()){
             log.info("회원 아이디 겹침");
-            throw  new DuplicateException();
-        }
-
-        // nickname 겹치는 경우
-        if(findNickName != null){
-            log.info("회원 닉네임 겹침");
             throw  new DuplicateException();
         }
     }
