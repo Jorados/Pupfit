@@ -104,8 +104,6 @@ public class ProductInitializer {
         userPuppyRepository.save(userPuppy);
         userPuppyRepository.save(userPuppy2);
 
-
-
         // 산책기록
         UserPuppy findUserPuppy1 = userPuppyRepository.findById(1L).orElseThrow(() -> new CustomNotFoundException("산책 정보"));
         UserPuppy findUserPuppy2 = userPuppyRepository.findById(2L).orElseThrow(() -> new CustomNotFoundException("산책 정보"));
