@@ -7,31 +7,34 @@ import jorados.pupfit.entity.Puppy;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class PuppyDto {
 
     private Long id;
+
     @NotBlank
     private String puppyName;
 
-    @NotBlank
+//    @NotBlank
     private String puppyType;
 
-    @NotBlank
+//    @NotBlank
     private String imgUrl;
 
-    @NotBlank
+//    @NotBlank
     private Date walkLow;
 
-    @NotBlank
+//    @NotBlank
     private Date walkHigh;
 
-    @NotNull
+//    @NotNull
     private String personality;
 
 }

@@ -21,14 +21,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/userPuppy")
+@RequestMapping("/api/userPuppy")
 public class UserPuppyController {
 
     private final UserPuppyService userPuppyService;
     private final UserService userService;
     private final PuppyService puppyService;
 
-    // 생성
+    // 생성 --> 강아지 케어 시작하는 경우
     @PostMapping("/create")
     public ResponseEntity<?> createUserPuppy(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody @Validated UserPuppyDto userPuppyDto) {
         userPuppyService.createUserPuppy(principalDetails.getUser().getId(), userPuppyDto);

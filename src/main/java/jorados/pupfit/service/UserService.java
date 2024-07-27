@@ -59,7 +59,7 @@ public class UserService {
 
     // 특정 회원 조회
     public UserResponse readUser(Long userId){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
 
         return UserResponse.builder()
                 .gender(findUser.getGender())
@@ -70,14 +70,14 @@ public class UserService {
     // 회원 정보 수정
     @Transactional
     public void updateUser(Long userId, UserRequest userRequest){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
         findUser.edit(userRequest);
     }
 
     // 회원 삭제
     @Transactional
     public void deleteUser(Long userId){
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
         userRepository.delete(findUser);
     }
 

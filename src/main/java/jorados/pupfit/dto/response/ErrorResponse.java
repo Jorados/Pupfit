@@ -12,13 +12,13 @@ import java.util.Map;
 public class ErrorResponse {
 
     private String code;
-    private String message;
+    private String msg;
     private final Map<String, String> validation;
 
     @Builder
-    public ErrorResponse(String code, String message,Map<String,String> validation) {
+    public ErrorResponse(String code, String msg,Map<String,String> validation) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
         this.validation = validation != null ? validation : new HashMap<>();
     }
 

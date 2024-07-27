@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .headers((headers) -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .exceptionHandling(exception -> exception // 에러 핸들링
                         .authenticationEntryPoint((request, response, authException) -> {
-                            CustomResponseUtil.fail(response, "로그인 오류", HttpStatus.UNAUTHORIZED);
+                            CustomResponseUtil.fail(response, "로그인 오류" ,HttpStatus.UNAUTHORIZED);
                         })
                         .accessDeniedHandler((request, response, e) -> {
                             CustomResponseUtil.fail(response, "권한이 없습니다", HttpStatus.FORBIDDEN);
@@ -75,7 +75,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/profile").permitAll()
                         .requestMatchers("/api/user/join").permitAll()
                         .requestMatchers("/api/user/**").authenticated()
-                        .requestMatchers("/api/puppy/**").authenticated()
+                        .requestMatchers("/api/puppy/**").permitAll()
                         .requestMatchers("/api/userPuppy/**").authenticated()
                         .requestMatchers("/api/walkedNote/**").authenticated()
                         .anyRequest().permitAll()

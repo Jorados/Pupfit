@@ -25,8 +25,8 @@ public class UserPuppyService {
     // 생성 ( 회원이 강아지를 기르게 되는 경우 )
     @Transactional
     public void createUserPuppy(Long userId, UserPuppyDto userPuppyDto) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
-        Puppy findPuppy = puppyRepository.findById(userPuppyDto.getPuppyId()).orElseThrow(() -> new CustomNotFoundException("강아지 정보를"));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
+        Puppy findPuppy = puppyRepository.findById(userPuppyDto.getPuppyId()).orElseThrow(() -> new CustomNotFoundException("강아지 정보"));
 
         UserPuppy userPuppy = UserPuppy.builder()
                 .user(findUser)
@@ -39,7 +39,7 @@ public class UserPuppyService {
 
     // 모두 조회 ( 회원 정보로만 정회 )
     public List<UserPuppyDto> readAllByUserId(Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보를"));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
         List<UserPuppy> findUserPuppy = userPuppyRepository.findByUser(findUser);
 
         if(findUserPuppy.isEmpty()){
@@ -59,7 +59,7 @@ public class UserPuppyService {
 
     // 특정 데이터 조회 ( 회원아이디랑 강아지아이디랑 다 필요 )
     public UserPuppyDto readById(Long userPuppyId) {
-        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보를"));
+        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보"));
         UserPuppyDto userPuppyDto = UserPuppyDto.builder()
                 .puppyId(findUserPuppy.getPuppy().getId())
                 .userId(findUserPuppy.getUser().getId())
@@ -77,7 +77,7 @@ public class UserPuppyService {
     // 데이터 삭제 ( 해당 user 혹은 puppy 가 삭제될 경우 )
     @Transactional
     public void deleteUserPuppy(Long userPuppyId) {
-        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보를"));
+        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보"));
         userPuppyRepository.delete(findUserPuppy);
     }
 }

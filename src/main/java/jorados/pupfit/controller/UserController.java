@@ -25,18 +25,18 @@ public class UserController {
 
     private final UserService userService;
 
-    // 회원가입 -> 구현해야함 (시큐리티 적용 이후에.)
-    // 로그인, 로그아웃 -> 시큐리티 기능 사용
+    // 회원가입
+    // 로그인 -> 시큐리티 기능 사용
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody @Validated UserLoginDto loginUser){
         userService.createUser(loginUser);
         return ResponseEntity.status(HttpStatus.OK).body("회원 생성 완료");
     }
 
-    // 조회
-    @GetMapping("/read/{userId}")
-    public ResponseEntity<?> readUser(@PathVariable("userId") Long userId) {
-        UserResponse userResponse = userService.readUser(userId);
+    // 현재 사용자 정보 조회
+    @GetMapping("/read")
+    public ResponseEntity<?> readUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        UserResponse userResponse = userService.readUser(principalDetails.getUser().getId());
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     // 수정
-    @PatchMapping("/update/{userId}")
+    @PatchMapping("/update")
     public ResponseEntity<?> updateUser(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody @Validated UserRequest userRequest){
         User findUser = principalDetails.getUser();
         userService.updateUser(findUser.getId(), userRequest);
@@ -56,10 +56,10 @@ public class UserController {
     }
 
     // 삭제
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@AuthenticationPrincipal PrincipalDetails principalDetails){
         User findUser = principalDetails.getUser();
         userService.deleteUser(findUser.getId());
-        return ResponseEntity.status(HttpStatus.OK).body("회원 정보 수정이 완료 되었습니다");
+        return ResponseEntity.status(HttpStatus.OK).body("회원 정보 삭제가 완료 되었습니다");
     }
 }

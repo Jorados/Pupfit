@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +26,8 @@ public class WalkedNoteService {
 
     // 생성
     @Transactional
-    public void createWalkedNote(Long userPuppy, WalkedNoteDto walkedNoteDto) {
-        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppy).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보를"));
+    public void createWalkedNote(WalkedNoteDto walkedNoteDto) {
+        UserPuppy findUserPuppy = userPuppyRepository.findById(walkedNoteDto.getUserPuppyId()).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보"));
         WalkedNote walkedNote = WalkedNote.builder()
                 .walked(walkedNoteDto.isWalked())
                 .walkedDate(walkedNoteDto.getWalkedDate())
@@ -35,25 +37,35 @@ public class WalkedNoteService {
         walkedNoteRepository.save(walkedNote);
     }
 
-    // 특정 사용자의 산책기록 모두 모두 조회
-    public List<WalkedNoteDto> readAllWalkedNote(List<UserPuppyDto> userPuppyDtoList){
-        ArrayList<WalkedNote> walkedList = new ArrayList<>();
+    // 특정 사용자의 산책 기록 모두 조회
+    public Map<Long,List<WalkedNoteDto>> readAllWalkedNote(List<UserPuppyDto> userPuppyDtoList){
+        // 각 유저-강아지 마다 여러개의 산책정보를 가질 수 있다.
+        Map<Long,List<WalkedNoteDto>> walkedList = new HashMap<>();
 
         for(UserPuppyDto userPuppyDto : userPuppyDtoList){
-            WalkedNote findWalkedNote = walkedNoteRepository.findByUserPuppyId(userPuppyDto.getId());
-            walkedList.add(findWalkedNote);
+            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyId(userPuppyDto.getId());
+
+            if(findWalkedNoteList.size() > 0){
+                List<WalkedNoteDto> findWalkedNoteDtoList = findWalkedNoteList.stream().map(findWalkedNote -> {
+                    WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
+                            .id(findWalkedNote.getId())
+                            .walked(findWalkedNote.isWalked())
+                            .walkedContent(findWalkedNote.getWalkedContent())
+                            .walkedDate(findWalkedNote.getWalkedDate())
+                            .userPuppyId(findWalkedNote.getUserPuppy().getId())
+                            .build();
+                    return walkedNoteDto;
+                }).collect(Collectors.toList());
+
+                walkedList.put(userPuppyDto.getId(),findWalkedNoteDtoList);
+            }
         }
 
-        return walkedList.stream().map(walkedNote -> {
-            WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
-                    .id(walkedNote.getId())
-                    .walked(walkedNote.isWalked())
-                    .walkedContent(walkedNote.getWalkedContent())
-                    .walkedDate(walkedNote.getWalkedDate())
-                    .userPuppy(walkedNote.getUserPuppy())
-                    .build();
-            return walkedNoteDto;
-        }).collect(Collectors.toList());
+        if(walkedList.isEmpty()){
+            throw new CustomNotFoundException("산책 정보");
+        }
+
+        return walkedList;
     }
 
     // 특정 산책 기록 조회
@@ -70,7 +82,7 @@ public class WalkedNoteService {
 
     // 수정
     @Transactional
-    public void updateWalkedNote(WalkedNoteDto walkedNoteDto){
+    public void updateWalkedNote(WalkedNoteDto walkedNoteDto) {
         WalkedNote findWalkedNote = walkedNoteRepository.findById(walkedNoteDto.getId()).orElseThrow(() -> new CustomNotFoundException("산책 정보를"));
         findWalkedNote.edit(walkedNoteDto);
     }

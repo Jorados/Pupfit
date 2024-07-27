@@ -44,14 +44,14 @@ public class PuppyController {
 
     // 강아지 정보 수정
     @PatchMapping("/{puppyId}")
-    public ResponseEntity<?> updatePuppy(@PathVariable Long puppyId, @RequestBody @Validated PuppyDto puppyDto){
+    public ResponseEntity<?> updatePuppy(@PathVariable("puppyId") Long puppyId, @RequestBody @Validated PuppyDto puppyDto){
         puppyService.updatePuppyById(puppyId,puppyDto);
-        return ResponseEntity.status(HttpStatus.OK).body(puppyDto);
+        return ResponseEntity.status(HttpStatus.OK).body("성공적으로 강아지 정보가 수정되었습니다.");
     }
 
     // 강아지 정보 삭제
     @DeleteMapping("/{puppyId}")
-    public ResponseEntity<?> deletePuppy(@PathVariable Long puppyId){
+    public ResponseEntity<?> deletePuppy(@PathVariable("puppyId") Long puppyId){
         puppyService.deletePuppyById(puppyId);
         return ResponseEntity.status(HttpStatus.OK).body("정상적으로 삭제 되었습니다.");
     }

@@ -75,6 +75,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
         log.info("로그인 실패: {}", failed.getMessage());
+        CustomResponseUtil.fail(response,"로그인 실패 : " + failed.getMessage(),HttpStatus.UNAUTHORIZED);
     }
 
 
