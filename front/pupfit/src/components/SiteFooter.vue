@@ -3,5 +3,9 @@
 </script>
 
 <template>
-  <h1> Home View! </h1>
+  <h1>푸터</h1>
 </template>
+
+<style scoped>
+
+</style>
