@@ -11,16 +11,13 @@ import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.UserRepository;
 import jorados.pupfit.repository.WalkedNoteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -30,6 +27,7 @@ public class ProductInitializer {
     private final PuppyRepository puppyRepository;
     private final UserPuppyRepository userPuppyRepository;
     private final WalkedNoteRepository walkedNoteRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public static LocalTime createTime(int hour, int minute, int second) {
         LocalTime time = LocalTime.of(hour, minute, second); // 특정 시간
@@ -42,14 +40,14 @@ public class ProductInitializer {
     public void init() {
         User user1 = User.builder()
                 .username("aaa")
-                .password("aaa")
+                .password(bCryptPasswordEncoder.encode("aaa"))
                 .nickname("조성진")
                 .gender(Gender.MALE)
                 .build();
 
         User user2 = User.builder()
                 .username("bbb")
-                .password("bbb")
+                .password(bCryptPasswordEncoder.encode("bbb"))
                 .nickname("테스트")
                 .gender(Gender.FEMALE)
                 .build();
