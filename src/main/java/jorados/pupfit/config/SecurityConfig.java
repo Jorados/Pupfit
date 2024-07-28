@@ -1,10 +1,9 @@
 package jorados.pupfit.config;
 
-import jorados.pupfit.config.auth.PrincipalDetailsService;
 import jorados.pupfit.config.jwt.JwtAuthenticationFilter;
 import jorados.pupfit.config.jwt.JwtAuthorizationFilter;
 import jorados.pupfit.repository.UserRepository;
-import jorados.pupfit.util.CustomResponseUtil;
+import jorados.pupfit.dto.response.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -55,10 +52,7 @@ public class SecurityConfig {
                 .headers((headers) -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .exceptionHandling(exception -> exception // 에러 핸들링
                         .authenticationEntryPoint((request, response, authException) -> {
-                            CustomResponseUtil.fail(response, "로그인 오류" ,HttpStatus.UNAUTHORIZED);
-                        })
-                        .accessDeniedHandler((request, response, e) -> {
-                            CustomResponseUtil.fail(response, "권한이 없습니다", HttpStatus.FORBIDDEN);
+                            CustomResponse.fail(response, "로그인 오류 ( 토큰 확인 필요 )" ,HttpStatus.UNAUTHORIZED, authException.getMessage());
                         })
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 정책 비활성화 -> JWT 방식

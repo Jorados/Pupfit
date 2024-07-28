@@ -9,15 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jorados.pupfit.config.auth.PrincipalDetails;
 import jorados.pupfit.entity.User;
-import jorados.pupfit.repository.UserRepository;
-import jorados.pupfit.util.CustomResponseUtil;
+import jorados.pupfit.dto.response.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -68,16 +64,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
 
         log.info("로그인 완료됨 = {}", principalDetails.getUser().getUsername());
-        CustomResponseUtil.success(response,"로그인 성공",principalDetails.getUser().getUsername());
+        CustomResponse.success(response,"로그인 성공", principalDetails.getUser().getUsername());
     }
 
     // 로그인 실패
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-        log.info("로그인 실패: {}", failed.getMessage());
-        CustomResponseUtil.fail(response,"로그인 실패 : " + failed.getMessage(),HttpStatus.UNAUTHORIZED);
+        log.info("로그인 실패됨 = {}", failed.getMessage());
+        CustomResponse.fail(response,"로그인 실패" , HttpStatus.UNAUTHORIZED, failed.getMessage());
     }
-
-
-
 }

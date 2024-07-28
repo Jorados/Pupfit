@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashMap;
 import java.util.Map;
 
+
+// 일반 에러 메세지 전용 Reseponse
 @Getter
 @RequiredArgsConstructor
 public class ErrorResponse {

@@ -18,6 +18,7 @@ spring:
     #org.hibernate.SQL: debug
     #org.apache.coyote.http11: debug
 
+# 디폴트 경로 : http://localhost:8080/swagger-ui/index.html
 springdoc:
   swagger-ui:
     groups-order: DESC
