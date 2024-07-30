@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <div class="welcome-message">
+    <div class="welcome-message" v-if="isAuthenticated">
       <p class="welcome-text">안녕하세요, <span class="user-name"></span>성진 님!</p>
       <p class="description">오늘도 즐거운 강아지 산책하세요.</p>
+      <button @click="logout">로그아웃</button>
     </div>
-    <div class="brand" >
+    <div class="brand" v-if="isAuthenticated">
       PUPFIT
     </div>
 
-    <NavBar ></NavBar>
+    <NavBar v-if="isAuthenticated"></NavBar>
     <div class="router-view-wrapper">
       <router-view></router-view>
     </div>
 
-<!--    <footer class="footer">-->
+<!--    <footer class="footer" v-if="isAuthenticated">-->
 <!--      <p>&copy; 2023 Leafy. All rights reserved.</p>-->
 <!--    </footer>-->
   </div>
@@ -21,10 +22,21 @@
 </template>
 
 <script setup>
-import SiteHeader from "./components/SiteHeader.vue";
-// import SiteFooter from "@/components/SiteFooter.vue";
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import NavBar from "@/components/NavBar.vue";
+import { useRouter } from 'vue-router';
 
+const store = useStore();
+const router = useRouter();
+const isAuthenticated = computed(() =>{
+  return store.getters.isAuthenticated;
+});
+
+const logout = () => {
+  store.dispatch('logout'); // Vuex에서 로그아웃 액션 호출
+  router.push('/login'); // 로그인 페이지로 리디렉션
+};
 </script>
 
 
