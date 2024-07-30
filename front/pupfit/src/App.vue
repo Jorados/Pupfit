@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="welcome-message" v-if="isAuthenticated">
-      <p class="welcome-text">안녕하세요, <span class="user-name"></span>성진 님!</p>
+      <p class="welcome-text">안녕하세요, <span class="user-name"></span>{{ nickname }} 님!</p>
       <p class="description">오늘도 즐거운 강아지 산책하세요.</p>
       <button @click="logout">로그아웃</button>
     </div>
@@ -22,10 +22,11 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted , ref } from 'vue';
 import { useStore } from 'vuex';
 import NavBar from "@/components/NavBar.vue";
 import { useRouter } from 'vue-router';
+import axios from '@/api/axios';
 
 const store = useStore();
 const router = useRouter();
@@ -37,6 +38,19 @@ const logout = () => {
   store.dispatch('logout'); // Vuex에서 로그아웃 액션 호출
   router.push('/login'); // 로그인 페이지로 리디렉션
 };
+
+
+const nickname = ref('');
+onMounted(async () => {
+  if (isAuthenticated.value) {
+    try {
+      const response = await axios.get('/api/user/read');
+      nickname.value = response.data.nickname; // response의 nickname 필드 사용
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  }
+});
 </script>
 
 

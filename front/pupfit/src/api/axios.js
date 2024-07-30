@@ -13,7 +13,7 @@ instance.interceptors.request.use(
         if (!config.url.includes('/login')) {
             const token = localStorage.getItem('token');
             if (token) {
-                config.headers['Authorization'] = `Bearer ${token}`;
+                config.headers['Authorization'] = `${token}`;
             }
         }
         return config;
