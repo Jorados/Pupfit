@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>강아지 목록</h1>
+  <div class="mb-5">
+    <h3 class="mt-5 mb-4">강아지 목록</h3>
     <ul>
       <!-- puppies 배열을 반복하여 각 Puppy 정보를 리스트 항목으로 표시합니다. -->
       <li v-for="puppy in puppies" :key="puppy.id">
@@ -46,10 +46,10 @@ ul {
 }
 
 li {
+  padding: 20px;
+  margin: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
   display: flex;
   align-items: center;
 }

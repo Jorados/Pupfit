@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 style="margin-top: 15px;">나의 강아지</h1>
+  <div class="mb-5">
+    <h3 class="mt-5" style="margin-top: 15px;">나의 강아지</h3>
     <div class="puppy-list">
       <div v-for="puppy in puppies" :key="puppy.id" class="puppy-card">
         <h4>{{ puppy.puppyName }}</h4>

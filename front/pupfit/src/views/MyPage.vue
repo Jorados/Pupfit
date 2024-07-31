@@ -1,6 +1,6 @@
 <template>
   <div class="user-container">
-    <div class="user-card">
+    <div class="user-card mb-5">
       <div class="user-card__header">
         <h3>사용자 정보</h3>
       </div>
@@ -26,11 +26,9 @@ onMounted(async () => {
     const response = await axios.get('/api/user/read');
     currentUser.value = response.data;
   } catch (error) {
-    console.error('Error fetching puppy data:', error);
+    console.error('Error fetching user data:', error);
   }
 });
-
-
 
 </script>
 
