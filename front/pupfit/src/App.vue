@@ -14,9 +14,9 @@
       <router-view></router-view>
     </div>
 
-<!--    <footer class="footer" v-if="isAuthenticated">-->
-<!--      <p>&copy; 2023 Leafy. All rights reserved.</p>-->
-<!--    </footer>-->
+    <footer class="footer" v-if="isAuthenticated">
+      <p>&copy; 2023 Leafy. All rights reserved.</p>
+    </footer>
   </div>
 
 </template>
@@ -54,7 +54,7 @@ onMounted(async () => {
 </script>
 
 
-<style scoped>
+<style>
 html,
 body {
   height: 100%;
@@ -84,10 +84,15 @@ body {
   font-weight: bold;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
 .brand {
   font-size: 2.5em;
   font-weight: bold;
-  color: #1c1904;
+  color: #595849FF;
   padding-top: 30px;
   padding-bottom: 20px;
   text-align: center;
@@ -102,7 +107,7 @@ body {
 }
 
 .footer {
-  background-color: #8FBC8F;
+  background-color: #595849FF;
   color: white;
   padding: 1rem;
   font-size: 0.9rem;

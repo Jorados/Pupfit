@@ -3,7 +3,7 @@
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/puppy">Puppy</router-link></li>
-      <li><router-link to="/walkedNote">Walked Dairy</router-link></li>
+      <li><router-link to="/walkedNote">Walked</router-link></li>
       <li><router-link to="/myPage">MyPage</router-link></li>
     </ul>
   </nav>
