@@ -2,9 +2,12 @@
   <div class="mb-5">
     <h3 class="mt-5" style="margin-top: 15px;">나의 강아지</h3>
     <div class="puppy-list">
-      <div v-for="puppy in puppies" :key="puppy.id" class="puppy-card">
-        <h4>{{ puppy.puppyName }}</h4>
-        <img :src="puppy.imgUrl" alt="Puppy Image" class="puppy-image" />
+      <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item">
+
+        <div class="puppy-details">
+          <h5 style="color: green; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyName }}({{ puppy.id ? puppy.puppyType : '알 수 없는 강아지' }})</h5>
+          <p class="puppy-type">{{ puppy.id ? '강아지' : '알 수 없는 강아지' }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -19,6 +22,7 @@ const fetchPuppies = async () => {
   try {
     const response = await axios.get('/api/userPuppy/read');
     puppies.value = response.data;
+    console.log(response);
   } catch (error) {
     console.error('Failed to fetch puppies:', error);
   }
@@ -38,19 +42,37 @@ onMounted(() => {
   justify-content: center;
 }
 
-.puppy-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  margin: 10px;
-  width: 200px;
-  text-align: center;
+.puppy-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 280px;
+  height: 150px;
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  cursor: pointer;
 }
 
-.puppy-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+.puppy-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto; /* 추가된 속성 */
+  margin-bottom: auto; /* 추가된 속성 */
+}
+
+.puppy-name {
+  font-weight: bold;
+}
+
+.puppy-type {
+  font-size: 16px;
+  color: #4c4c4c;
 }
 
 </style>

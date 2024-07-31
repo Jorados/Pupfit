@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="welcome-message" v-if="isAuthenticated">
-      <p class="welcome-text">안녕하세요, <span class="user-name"></span>{{ nickname }} 님!</p>
+      <p class="welcome-text">안녕하세요, <span class="user-name">{{ nickname }}</span>님!</p>
       <p class="description">오늘도 즐거운 강아지 산책하세요.</p>
-      <b-button variant="outline-primary" class="btn-sm">로그아웃</b-button>
+      <b-button variant="outline-secondary" class="btn-sm">로그아웃</b-button>
     </div>
     <div class="brand" v-if="isAuthenticated">
       PUPFIT
@@ -15,7 +15,7 @@
     </div>
 
     <footer class="footer" v-if="isAuthenticated">
-      <p>&copy; 2023 Leafy. All rights reserved.</p>
+      <p>&copy; PUPFIT. All rights reserved.</p>
     </footer>
   </div>
 
@@ -79,6 +79,11 @@ body {
   margin: auto;
 }
 
+.description {
+  font-size: 0.8rem;
+  color: #555;
+}
+
 .welcome-text {
   font-size: 0.9rem;
   font-weight: bold;
@@ -92,10 +97,14 @@ body {
 .brand {
   font-size: 2.5em;
   font-weight: bold;
-  color: #595849FF;
+  color: #96a675;
   padding-top: 30px;
   padding-bottom: 20px;
   text-align: center;
+}
+
+.user-name {
+  color: #96a675;
 }
 
 .welcome-message {
@@ -106,8 +115,9 @@ body {
   text-align: right;
 }
 
+
 .footer {
-  background-color: #595849FF;
+  background-color: #96a675;
   color: white;
   padding: 1rem;
   font-size: 0.9rem;

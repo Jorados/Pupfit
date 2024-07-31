@@ -1,16 +1,18 @@
 <template>
-  <div class="mb-5">
-    <h3 class="mt-5 mb-4">강아지 목록</h3>
-    <ul>
-      <!-- puppies 배열을 반복하여 각 Puppy 정보를 리스트 항목으로 표시합니다. -->
-      <li v-for="puppy in puppies" :key="puppy.id">
-        <h2>{{ puppy.puppyName }}</h2>
-        <img :src="puppy.imgUrl" alt="Puppy Image" width="100" />
-        <p>Type: {{ puppy.puppyType }}</p>
-        <p>Walk Time: {{ puppy.walkLow }} - {{ puppy.walkHigh }}</p>
-        <p>Personality: {{ puppy.personality }}</p>
-      </li>
-    </ul>
+  <div class="container">
+    <h3 class="title">강아지 목록</h3>
+    <div class="card-container">
+      <!-- puppies 배열을 반복하여 각 Puppy 정보를 카드로 표시합니다. -->
+      <div v-for="puppy in puppies" :key="puppy.id" class="card">
+        <img :src="puppy.imgUrl" alt="Puppy Image" class="card-img" />
+        <div class="card-content">
+          <h2 class="card-title">{{ puppy.puppyName }}</h2>
+          <p class="card-type">Type: {{ puppy.puppyType }}</p>
+          <p class="card-personality">Personality: {{ puppy.personality }}</p>
+          <p class="card-walk-time">Walk Time: {{ puppy.walkLow }} - {{ puppy.walkHigh }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,33 +35,50 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* PuppyList 페이지에 대한 스타일 */
-h1 {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
+.container {
   padding: 20px;
-  margin: 15px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  width: 300px; /* 4 cards per row with gap */
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
-img {
-  border-radius: 8px;
-  margin-right: 1rem;
+.card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
-p {
+.card-content {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card-type, .card-personality, .card-walk-time {
   margin: 0.5rem 0;
 }
 </style>

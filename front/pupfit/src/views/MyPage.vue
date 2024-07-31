@@ -5,8 +5,7 @@
         <h3>사용자 정보</h3>
       </div>
       <div class="user-card__content">
-        <p><strong>이름:</strong> {{ currentUser.name }}</p>
-        <p><strong>이메일:</strong> {{ currentUser.nickname }}</p>
+        <p><strong>이름:</strong> {{ currentUser.nickname }}</p>
         <p><strong>성별:</strong> {{ currentUser.gender }}</p>
 
         <v-btn class="user-edit-button" @click="showPasswordModal" style="width: 100%">정보 수정</v-btn>
@@ -75,7 +74,7 @@ onMounted(async () => {
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #1c1904;
+  background-color: #8FBC8F;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
