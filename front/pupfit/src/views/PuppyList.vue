@@ -7,9 +7,9 @@
         <img :src="puppy.imgUrl" alt="Puppy Image" class="card-img" />
         <div class="card-content">
           <h2 class="card-title">{{ puppy.puppyName }}</h2>
-          <p class="card-type">Type: {{ puppy.puppyType }}</p>
-          <p class="card-personality">Personality: {{ puppy.personality }}</p>
-          <p class="card-walk-time">Walk Time: {{ puppy.walkLow }} - {{ puppy.walkHigh }}</p>
+          <p class="card-type"> {{ puppy.puppyType }}</p>
+          <p class="card-personality"> {{ puppy.personality }}</p>
+          <p class="card-walk-time"> 산책 가능 시간 : {{ puppy.walkLow }} - {{ puppy.walkHigh }}</p>
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@ h1 {
   font-size: 3rem;
   margin: 2rem;
   margin-top: 1rem;
-  color: #556B2F;
+  color: #a6ced7;
 }
 form {
   display: flex;
@@ -91,7 +91,7 @@ input[type="password"] {
   box-sizing: border-box;
 }
 button[type="submit"] {
-  background-color: #8FBC8F;
+  background-color: #a6ced7;
   border: none;
   color: white;
   padding: 0.7rem;
@@ -105,6 +105,6 @@ button[type="submit"] {
   box-sizing: border-box;
 }
 button[type="submit"]:hover {
-  background-color: #556B2F;
+  background-color: #7dc9da;
 }
 </style>
