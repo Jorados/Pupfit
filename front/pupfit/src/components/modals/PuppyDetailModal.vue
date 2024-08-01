@@ -35,10 +35,8 @@ const props = defineProps({
   isOpen: Boolean,
   puppyId: Number
 });
-// 모달 속성 객체 계산
 const dialogProps = computed(() => ({
   modelValue: props.isOpen,
-  'onUpdate:modelValue': (val) => emit('update:isOpen', val),
 }));
 
 const emit = defineEmits(['update:isOpen']);
