@@ -35,17 +35,18 @@ const props = defineProps({
   isOpen: Boolean,
   puppyId: Number
 });
-
-const emit = defineEmits(['update:isOpen']);
-
-const puppy = ref([]);
-
 // 모달 속성 객체 계산
 const dialogProps = computed(() => ({
   modelValue: props.isOpen,
   'onUpdate:modelValue': (val) => emit('update:isOpen', val),
 }));
 
+const emit = defineEmits(['update:isOpen']);
+const closeModal = () => {
+  emit('update:isOpen', false);
+};
+
+const puppy = ref([]);
 const fetchPuppyDetails = async (puppyId) => {
   try {
     const response = await axios.get(`/api/puppy/${puppyId}`);
@@ -62,8 +63,4 @@ watch(() => props.puppyId, (newPuppyId) => {
   }
 });
 
-// 모달 닫기 함수
-const closeModal = () => {
-  emit('update:isOpen', false);
-};
 </script>

@@ -3,7 +3,7 @@
     <div class="welcome-message" v-if="isAuthenticated">
       <p class="welcome-text">안녕하세요, <span class="user-name">{{ nickname }}</span>님!</p>
       <p class="description">오늘도 즐거운 강아지 산책하세요.</p>
-      <v-btn @click="logout" variant="plain" size="sm" style="margin-top:5px" >로그아웃</v-btn>
+      <v-btn @click="logout" variant="plain" size="sm" style="margin-top:5px">로그아웃</v-btn>
     </div>
     <div class="brand" v-if="isAuthenticated">
       PUPFIT

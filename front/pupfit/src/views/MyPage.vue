@@ -7,9 +7,7 @@
       <div class="user-card__content">
         <p><strong>이름:</strong> {{ currentUser.nickname }}</p>
         <p><strong>성별:</strong> {{ currentUser.gender }}</p>
-
         <v-btn class="user-edit-button" @click="showPasswordModal" style="width: 100%">정보 수정</v-btn>
-
       </div>
     </div>
   </div>
@@ -70,7 +68,7 @@ onMounted(async () => {
   margin-bottom: 0;
 }
 .user-edit-button {
-  margin-top: 2rem;
+  margin-top: 0.7rem;
   font-size: 1rem;
   font-weight: bold;
   color: white;

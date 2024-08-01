@@ -3,11 +3,11 @@
     <h3 style="margin-top: 50px;">관리 강아지</h3>
     <div class="puppy-list">
       <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.puppyId)">
-        <v-icon color="red" large>mdi-emoticon-angry-outline</v-icon>
-        <v-icon color="blue" large>mdi-emoticon-happy-outline</v-icon>
+        <!--v-icon color="red" large>mdi-emoticon-angry-outline</v-icon-->
+        <v-icon style="margin-top:10px" color="blue" large>mdi-emoticon-happy-outline</v-icon>
         <div class="puppy-details">
-          <h5 style="color: green; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyName }}({{ puppy.id ? puppy.puppyType : '알 수 없는 강아지' }})</h5>
-          <p class="puppy-type">{{ puppy.id ? '강아지' : '알 수 없는 강아지' }}</p>
+          <h5>기분 좋음</h5>
+          <h5 style="color: green; margin-top: 5px; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyName }}({{ puppy.id ? puppy.puppyType : '알 수 없는 강아지' }})</h5>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
             </div>
             <div class="note-body">
               <v-card-text class="note-title">
-                <h5 style="color: #green; font-weight: bold; cursor: pointer;">
+                <h5 style="color: green; font-weight: bold; cursor: pointer;">
                   {{ walkedNote.puppyName }} ({{ walkedNote.puppyType }})
                 </h5>
                 <br>{{ walkedNote.walkedContent }}
