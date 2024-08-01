@@ -13,21 +13,22 @@
     </div>
 
     <h3 style="margin-top: 15px;">최근 산책 일기</h3>
-    <div class="log-container">
+    <div class="note-container">
       <v-row>
         <v-col v-for="walkedNote in walkedNotes" :key="walkedNote.id" cols="12" md="6" lg="3">
-          <v-card class="log-card" variant="outlined">
-            <div class="log-header">
+          <v-card class="note-card" variant="outlined">
+            <div class="note-header">
               <v-icon v-if="walkedNote.walked" color="primary darken-4" large>mdi-dog-service</v-icon>
             </div>
-            <div class="log-body">
-              <v-card-text class="log-title">
-                <h5 style="color: #222222; font-weight: bold; cursor: pointer;">
-                  {{ walkedNote.walkedContent }}
+            <div class="note-body">
+              <v-card-text class="note-title">
+                <h5 style="color: #green; font-weight: bold; cursor: pointer;">
+                  {{ walkedNote.puppyName }} ({{ walkedNote.puppyType }})
                 </h5>
+                <br>{{ walkedNote.walkedContent }}
               </v-card-text>
             </div>
-            <div class="log-footer">
+            <div class="note-footer">
               <v-card-text>{{ walkedNote.walkedDate }}</v-card-text>
             </div>
           </v-card>
@@ -137,11 +138,11 @@ const openPuppyDetailModal = (puppyId) => {
   color: #4c4c4c;
 }
 
-.log-container {
+.note-container {
   margin: 30px;
 }
 
-.log-card {
+.note-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -153,17 +154,5 @@ const openPuppyDetailModal = (puppyId) => {
   padding: 20px;
 }
 
-/* 모바일 기기에서의 레이아웃 조정 */
-@media (max-width: 768px) {
-  .log-card {
-    width: calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .log-card {
-    width: calc(100% - 20px);
-  }
-}
 
 </style>
