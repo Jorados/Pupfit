@@ -2,6 +2,7 @@ package jorados.pupfit.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jorados.pupfit.entity.Puppy;
@@ -40,6 +41,7 @@ public class PuppyDto {
     private LocalTime walkHigh;
 
 //    @NotNull
+    @Lob
     private String personality;
 
 }

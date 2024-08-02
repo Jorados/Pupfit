@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="max-width: 1300px">
     <h3 class="title">강아지 목록</h3>
     <div class="card-container">
       <!-- puppies 배열을 반복하여 각 Puppy 정보를 카드로 표시합니다. -->
@@ -7,7 +7,7 @@
         <img :src="puppy.imgUrl" alt="Puppy Image" class="card-img" />
         <div class="card-content">
           <p class="card-type"> {{ puppy.puppyName }}</p>
-          <p class="card-personality"> {{ puppy.personality }}</p>
+          <p class="card-personality"> {{ truncateText(puppy.personality, 100) }}</p>
         </div>
       </div>
     </div>
@@ -46,6 +46,13 @@ const openPuppyDetailModal = (puppyId) => {
   state.value.selectedPuppyId = puppyId;
   state.value.showPuppyDetailModal = true;
 };
+
+function truncateText(text, length) {
+  if (text.length > length) {
+    return text.substring(0, length) + '...';
+  }
+  return text;
+}
 </script>
 
 <style scoped>
@@ -77,7 +84,7 @@ const openPuppyDetailModal = (puppyId) => {
 
 .card-img {
   width: 100%;
-  height: 150px;
+  height: 200px;
   object-fit: cover;
 }
 

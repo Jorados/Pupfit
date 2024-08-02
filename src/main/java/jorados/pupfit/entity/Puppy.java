@@ -49,8 +49,8 @@ public class Puppy {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime walkHigh; // 산책 마감 시간
 
-    @Column(name = "personality")
-    private String personality; // 성격
+    @Column(name = "personality", columnDefinition = "LONGTEXT")
+    private String personality; // 특징, 성격
 
     @CreatedDate
     @Column(name="created_at" , updatable = false, columnDefinition = "TIMESTAMP")
