@@ -20,9 +20,9 @@ public class UserPuppyDto {
 
     private Long userId;
 
-    private String puppyName;
+    private String puppyPersonalName;
 
-    private String puppyType;
+    private String puppyName;
 
     @NotNull
     private Long puppyId;

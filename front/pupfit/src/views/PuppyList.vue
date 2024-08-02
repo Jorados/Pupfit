@@ -6,7 +6,7 @@
       <div v-for="puppy in puppies" :key="puppy.id" class="card" @click="openPuppyDetailModal(puppy.id)">
         <img :src="puppy.imgUrl" alt="Puppy Image" class="card-img" />
         <div class="card-content">
-          <p class="card-type"> {{ puppy.puppyType }}</p>
+          <p class="card-type"> {{ puppy.puppyName }}</p>
           <p class="card-personality"> {{ puppy.personality }}</p>
         </div>
       </div>

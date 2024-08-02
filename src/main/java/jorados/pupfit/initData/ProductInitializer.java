@@ -58,8 +58,8 @@ public class ProductInitializer {
         LocalTime walkHighTime = createTime(18, 30, 00); // 18:30 시간만 설정
 
         Puppy puppy1 = Puppy.builder()
-                .puppyName("성진1")
-                .puppyType("푸들")
+                .puppyName("푸들")
+                .puppyType("반려견")
                 .imgUrl("https://i.namu.wiki/i/j2Gz_JHE5A1MlSaglc2dyOecDVT0FXdjUbdzkPEjndZ9gsERUnl0G6rDs8d0LyOf2WeS71GS1yokVhs4EEcLVw.webp")
                 .walkLow(walkLowTime) // 최소시간
                 .walkHigh(walkHighTime) // 최대시간
@@ -67,8 +67,8 @@ public class ProductInitializer {
                 .build();
 
         Puppy puppy2 = Puppy.builder()
-                .puppyName("성진2")
-                .puppyType("비숑")
+                .puppyName("비숑")
+                .puppyType("반려견")
                 .imgUrl("https://m.milliong.co.kr/file_data/milliong01/2021/12/30/66de6e83edfa9d14fc9cd3376631e9a3.jpg")
                 .walkLow(walkLowTime)
                 .walkHigh(walkHighTime)
@@ -76,8 +76,8 @@ public class ProductInitializer {
                 .build();
 
         Puppy puppy3 = Puppy.builder()
-                .puppyName("성진3")
-                .puppyType("포메라니안")
+                .puppyName("포메라니안")
+                .puppyType("반려견")
                 .imgUrl("https://i.namu.wiki/i/7IJj6iEgr4a41vfl5vOyUGtHAoC2ZQZABnuNua26JeAXjThMcrjJuul8E0CWmAfVB_m_8e535REXuU47IxU2Cg.webp")
                 .walkLow(walkLowTime)
                 .walkHigh(walkHighTime)
@@ -96,19 +96,19 @@ public class ProductInitializer {
         User findUser1 = userRepository.findById(1L).orElseThrow(() -> new CustomNotFoundException("사용자"));
 
         UserPuppy userPuppy = UserPuppy.builder()
-                .puppyName("성진1")
+                .puppyPersonalName("성진1")
                 .user(findUser1)
                 .puppy(findPuppy1)
                 .build();
 
         UserPuppy userPuppy2 = UserPuppy.builder()
-                .puppyName("성진2")
+                .puppyPersonalName("성진2")
                 .user(findUser1)
                 .puppy(findPuppy2)
                 .build();
 
         UserPuppy userPuppy3 = UserPuppy.builder()
-                .puppyName("성진2")
+                .puppyPersonalName("성진2")
                 .user(findUser1)
                 .puppy(findPuppy3)
                 .build();

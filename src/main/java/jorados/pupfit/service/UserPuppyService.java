@@ -31,7 +31,7 @@ public class UserPuppyService {
         UserPuppy userPuppy = UserPuppy.builder()
                 .user(findUser)
                 .puppy(findPuppy)
-                .puppyName(userPuppyDto.getPuppyName())
+                .puppyPersonalName(userPuppyDto.getPuppyPersonalName())
                 .build();
 
         userPuppyRepository.save(userPuppy);
@@ -51,8 +51,8 @@ public class UserPuppyService {
                     .id(userPuppy.getId())
                     .userId(userPuppy.getUser().getId())
                     .puppyId(userPuppy.getPuppy().getId())
-                    .puppyType(userPuppy.getPuppy().getPuppyType())
-                    .puppyName(userPuppy.getPuppyName())
+                    .puppyName(userPuppy.getPuppy().getPuppyName())
+                    .puppyPersonalName(userPuppy.getPuppyPersonalName())
                     .build();
             return userPuppyDto;
         }).collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class UserPuppyService {
         UserPuppyDto userPuppyDto = UserPuppyDto.builder()
                 .puppyId(findUserPuppy.getPuppy().getId())
                 .userId(findUserPuppy.getUser().getId())
-                .puppyName(findUserPuppy.getPuppyName())
+                .puppyPersonalName(findUserPuppy.getPuppyPersonalName())
                 .build();
         return userPuppyDto;
     }

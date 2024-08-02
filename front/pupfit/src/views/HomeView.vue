@@ -7,7 +7,7 @@
         <v-icon style="margin-top:10px" color="blue" large>mdi-emoticon-happy-outline</v-icon>
         <div class="puppy-details">
           <h5>기분 좋음</h5>
-          <h5 style="color: green; margin-top: 5px; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyName }}({{ puppy.id ? puppy.puppyType : '알 수 없는 강아지' }})</h5>
+          <h5 style="color: green; margin-top: 5px; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyPersonalName }}({{ puppy.id ? puppy.puppyName : '알 수 없는 강아지' }})</h5>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
             <div class="note-body">
               <v-card-text class="note-title">
                 <h5 style="color: green; font-weight: bold; cursor: pointer;">
-                  {{ walkedNote.puppyName }} ({{ walkedNote.puppyType }})
+                  {{ walkedNote.puppyPersonalName }} ({{ walkedNote.puppyName }})
                 </h5>
                 <br>{{ walkedNote.walkedContent }}
               </v-card-text>

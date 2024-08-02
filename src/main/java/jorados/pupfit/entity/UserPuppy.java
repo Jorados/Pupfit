@@ -31,7 +31,7 @@ public class UserPuppy {
     @Column(name="user_puppy_id")
     private Long id; // DB 넘버
 
-    private String puppyName;
+    private String puppyPersonalName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "puppy_id", nullable = false)
