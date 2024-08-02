@@ -28,4 +28,7 @@ public class WalkedNoteDto {
 
 //    @NotNull
     private Long userPuppyId;
+
+    private String puppyType;
+    private String puppyName;
 }

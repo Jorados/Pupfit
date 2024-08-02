@@ -61,4 +61,10 @@ public class WalkedNoteController {
         walkedNoteService.updateWalkedNote(walkedNoteDto);
         return ResponseEntity.status(HttpStatus.OK).body("해당 산책 정보가 삭제 되었습니다.");
     }
+
+//    // 해당 walkedNoteId를 이용해서 puppy의 정보를 불러오는 api
+//    @GetMapping("/read/puppy/{walkedNoteId}")
+//    public ResponseEntity<?> readPuppyByWalkedNoteId(@PathVariable("walkedNoteId") Long walkedNoteId){
+//        walkedNoteService.readPuppyByWalkedNoteId(walkedNoteId);
+//    }
 }

@@ -43,7 +43,7 @@ public class UserPuppyService {
         List<UserPuppy> findUserPuppy = userPuppyRepository.findByUser(findUser);
 
         if(findUserPuppy.isEmpty()){
-            throw new CustomNotFoundException("유저-강아지 정보를");
+            throw new CustomNotFoundException("유저-강아지 정보");
         }
 
         return findUserPuppy.stream().map(userPuppy->{
@@ -51,6 +51,7 @@ public class UserPuppyService {
                     .id(userPuppy.getId())
                     .userId(userPuppy.getUser().getId())
                     .puppyId(userPuppy.getPuppy().getId())
+                    .puppyType(userPuppy.getPuppy().getPuppyType())
                     .puppyName(userPuppy.getPuppyName())
                     .build();
             return userPuppyDto;

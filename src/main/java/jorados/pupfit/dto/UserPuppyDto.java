@@ -22,6 +22,8 @@ public class UserPuppyDto {
 
     private String puppyName;
 
+    private String puppyType;
+
     @NotNull
     private Long puppyId;
 }

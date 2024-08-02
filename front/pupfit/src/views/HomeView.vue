@@ -2,7 +2,7 @@
   <div>
     <h3 style="margin-top: 50px;">관리 강아지</h3>
     <div class="puppy-list">
-      <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.puppyId)">
+      <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.id)">
         <!--v-icon color="red" large>mdi-emoticon-angry-outline</v-icon-->
         <v-icon style="margin-top:10px" color="blue" large>mdi-emoticon-happy-outline</v-icon>
         <div class="puppy-details">

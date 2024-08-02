@@ -53,6 +53,8 @@ public class WalkedNoteService {
                             .walkedContent(findWalkedNote.getWalkedContent())
                             .walkedDate(findWalkedNote.getWalkedDate())
                             .userPuppyId(findWalkedNote.getUserPuppy().getId())
+                            .puppyName(userPuppyDto.getPuppyName())
+                            .puppyType(userPuppyDto.getPuppyType())
                             .build();
                     return walkedNoteDto;
                 }).collect(Collectors.toList());

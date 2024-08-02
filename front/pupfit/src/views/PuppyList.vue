@@ -3,22 +3,26 @@
     <h3 class="title">강아지 목록</h3>
     <div class="card-container">
       <!-- puppies 배열을 반복하여 각 Puppy 정보를 카드로 표시합니다. -->
-      <div v-for="puppy in puppies" :key="puppy.id" class="card">
+      <div v-for="puppy in puppies" :key="puppy.id" class="card" @click="openPuppyDetailModal(puppy.id)">
         <img :src="puppy.imgUrl" alt="Puppy Image" class="card-img" />
         <div class="card-content">
-          <h2 class="card-title">{{ puppy.puppyName }}</h2>
           <p class="card-type"> {{ puppy.puppyType }}</p>
           <p class="card-personality"> {{ puppy.personality }}</p>
-          <p class="card-walk-time"> 산책 가능 시간 : {{ puppy.walkLow }} - {{ puppy.walkHigh }}</p>
         </div>
       </div>
     </div>
   </div>
+
+  <PuppyDetailModal :isOpen="state.showPuppyDetailModal" :puppyId="state.selectedPuppyId"  @update:isOpen="state.showPuppyDetailModal = $event" />
+
 </template>
+
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from '@/api/axios'; // 수정된 경로로 Axios 임포트
+import axios from '@/api/axios';
+import PuppyDetailModal from "@/components/modals/PuppyDetailModal.vue"; // 수정된 경로로 Axios 임포트
 
 // Puppy 데이터를 저장할 상태
 const puppies = ref([]);
@@ -32,6 +36,16 @@ onMounted(async () => {
     console.error('Error fetching puppy data:', error);
   }
 });
+
+const state = ref({
+  selectedPuppyId: null,
+  showPuppyDetailModal: false,
+});
+
+const openPuppyDetailModal = (puppyId) => {
+  state.value.selectedPuppyId = puppyId;
+  state.value.showPuppyDetailModal = true;
+};
 </script>
 
 <style scoped>

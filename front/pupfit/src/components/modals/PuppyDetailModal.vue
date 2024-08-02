@@ -8,14 +8,14 @@
       <v-card-text>
         <v-row>
           <v-col cols="12">
-            <img :src="puppy.imgUrl" alt="puppy image" style="width: 100%;">
+            <v-img :src="puppy.imgUrl" alt="puppy image" width="100%" aspect-ratio="1.5"></v-img>
           </v-col>
           <v-col cols="12">
             <p><strong>견종 :</strong> {{ puppy.puppyType }}</p>
             <br>
             <p><strong>성격 :</strong> {{ puppy.personality }}</p>
             <br>
-            <p><strong>산책 시간 :</strong> {{ puppy.walkLow }} ~ {{ puppy.walkHigh }}</p>
+            <p><strong>산책 가능 시간 :</strong> {{ puppy.walkLow }} ~ {{ puppy.walkHigh }}</p>
           </v-col>
         </v-row>
       </v-card-text>
@@ -62,3 +62,7 @@ watch(() => props.puppyId, (newPuppyId) => {
 });
 
 </script>
+
+<style scoped>
+
+</style>
