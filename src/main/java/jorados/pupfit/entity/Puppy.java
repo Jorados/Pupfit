@@ -42,12 +42,10 @@ public class Puppy {
     private String imgUrl; // 이미지
 
     @Column(name = "walk_low", columnDefinition = "TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
-    private LocalTime walkLow; // 산책 시작 시간
+    private LocalTime walkLow; // 산책 가능한 시작 시간
 
     @Column(name = "walk_high", columnDefinition = "TIME")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
-    private LocalTime walkHigh; // 산책 마감 시간
+    private LocalTime walkHigh; // 산책 가능한 마감 시간
 
     @Column(name = "personality", columnDefinition = "LONGTEXT")
     private String personality; // 특징, 성격

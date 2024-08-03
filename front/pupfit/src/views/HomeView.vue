@@ -29,7 +29,7 @@
               </v-card-text>
             </div>
             <div class="note-footer">
-              <v-card-text>{{ walkedNote.walkedDate }}</v-card-text>
+              <v-card-text>{{ formatDate(walkedNote.walkedDate) }}</v-card-text>
             </div>
           </v-card>
         </v-col>
@@ -45,6 +45,7 @@
 import { ref, onMounted } from 'vue';
 import axios from '@/api/axios';
 import PuppyDetailModal from '@/components/modals/PuppyDetailModal.vue';
+import { formatDate } from '@/store/store.js';
 
 const puppies = ref([]);
 const walkedNotes = ref([]);
@@ -95,6 +96,7 @@ const openPuppyDetailModal = (puppyId) => {
   state.value.selectedPuppyId = puppyId;
   state.value.showPuppyDetailModal = true;
 };
+
 </script>
 
 <style scoped>

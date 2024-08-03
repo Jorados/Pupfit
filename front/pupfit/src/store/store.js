@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import {format} from "date-fns";
 
 export default createStore({
     state: {
@@ -26,3 +27,8 @@ export default createStore({
         isAuthenticated: state => !!state.token,
     },
 });
+
+export const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return format(date, 'yyyy년 MM월 dd일 HH시 mm분');
+};

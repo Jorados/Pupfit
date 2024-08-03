@@ -8,6 +8,7 @@ import jorados.pupfit.error.CustomNotFoundException;
 import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.WalkedNoteRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WalkedNoteService {
 
     private final WalkedNoteRepository walkedNoteRepository;

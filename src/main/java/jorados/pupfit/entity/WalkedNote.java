@@ -36,7 +36,7 @@ public class WalkedNote {
 
     private boolean walked; // 걷기 유무
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_puppy_id")
     private UserPuppy userPuppy;
 

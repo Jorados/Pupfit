@@ -28,6 +28,7 @@ public class WalkedNoteController {
     // 산책 정보 생성
     @PostMapping("/create")
     public ResponseEntity<?> createWalkedNote(@RequestBody @Validated WalkedNoteDto walkedNoteDto){
+        System.out.println(walkedNoteDto);
         walkedNoteService.createWalkedNote(walkedNoteDto);
         return ResponseEntity.status(HttpStatus.OK).body("산책 정보가 생성되었습니다");
     }
