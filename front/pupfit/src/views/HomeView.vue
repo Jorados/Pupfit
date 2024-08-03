@@ -3,10 +3,13 @@
     <h3 style="margin-top: 50px;">관리 강아지</h3>
     <div class="puppy-list">
       <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.id)">
-        <!--v-icon color="red" large>mdi-emoticon-angry-outline</v-icon-->
-        <v-icon style="margin-top:10px" color="blue" large>mdi-emoticon-happy-outline</v-icon>
+
+        <v-icon v-if="!puppyStatuses[puppy.id]" color="red" large>mdi-emoticon-angry-outline</v-icon>
+        <v-icon v-else color="blue" large>mdi-emoticon-happy-outline</v-icon>
+
         <div class="puppy-details">
-          <h5>기분 좋음</h5>
+          <h5 v-if="puppyStatuses[puppy.id]">기분 좋음</h5>
+          <h5 v-if="!puppyStatuses[puppy.id]">기분 안좋음</h5>
           <h5 style="color: green; margin-top: 5px; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyPersonalName }}({{ puppy.id ? puppy.puppyName : '알 수 없는 강아지' }})</h5>
         </div>
       </div>
@@ -15,10 +18,11 @@
     <h3 style="margin-top: 15px;">최근 산책 일기</h3>
     <div class="note-container">
       <v-row>
-        <v-col v-for="walkedNote in walkedNotes" :key="walkedNote.id" cols="12" md="6" lg="3">
-          <v-card class="note-card" variant="outlined">
+        <v-col v-for="walkedNote in walkedNotes" :key="walkedNote.id">
+          <v-card :to="{name: 'walkedNoteList'}" href="walkedNote" class="note-card" variant="outlined">
             <div class="note-header">
               <v-icon v-if="walkedNote.walked" color="primary darken-4" large>mdi-dog-service</v-icon>
+              <v-icon v-if="!walkedNote.walked" color="red darken-4" large>mdi-dog-service</v-icon>
             </div>
             <div class="note-body">
               <v-card-text class="note-title">
@@ -49,14 +53,29 @@ import { formatDate } from '@/store/store.js';
 
 const puppies = ref([]);
 const walkedNotes = ref([]);
-
-
+const puppyStatuses = ref({});
 
 const fetchPuppies = async () => {
   try {
+    // 강아지 데이터를 가져온다
     const response = await axios.get('/api/userPuppy/read');
     puppies.value = response.data;
     console.log("강아지 데이터", puppies);
+
+    // 각 강아지의 산책 기록을 확인하여 상태를 업데이트한다
+    for (const puppy of puppies.value) {
+      try {
+        // 각 강아지의 산책 기록을 가져온다
+        const walkedNotesResponse = await axios.get(`/api/walkedNote/read/userPuppy/${puppy.id}`);
+        const walkedNotesData = walkedNotesResponse.data;
+
+        const latestDate = walkedNotesData.walkedDate;
+        puppyStatuses.value[puppy.id] = latestDate ? isWithinLastWeek(latestDate) : false;
+      } catch (error) {
+        console.error(`Failed to fetch walked notes for puppy ${puppy.id}:`, error);
+        puppyStatuses.value[puppy.id] = false; // 기본적으로 false로 설정
+      }
+    }
   } catch (error) {
     console.error('Failed to fetch puppies:', error);
   }
@@ -81,12 +100,6 @@ const formatWalkedNotes = (data) => {
   return notesArray;
 };
 
-// 컴포넌트가 마운트될 때 데이터를 가져옴
-onMounted(() => {
-  fetchPuppies();
-  fetchWalkedNotes();
-});
-
 const state = ref({
   selectedPuppyId: null,
   showPuppyDetailModal: false,
@@ -96,6 +109,20 @@ const openPuppyDetailModal = (puppyId) => {
   state.value.selectedPuppyId = puppyId;
   state.value.showPuppyDetailModal = true;
 };
+
+
+// 날짜가 7일 이내인지 확인하는 함수
+const isWithinLastWeek = (date) => {
+  const currentDate = new Date();
+  const walkDate = new Date(date);
+  const oneWeekAgo = new Date(currentDate.setDate(currentDate.getDate() - 7));
+  return walkDate >= oneWeekAgo;
+};
+
+onMounted(() => {
+  fetchPuppies();
+  fetchWalkedNotes();
+});
 
 </script>
 
