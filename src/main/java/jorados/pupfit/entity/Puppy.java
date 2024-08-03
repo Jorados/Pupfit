@@ -33,10 +33,10 @@ public class Puppy {
     private Long id;
 
     @Column(name = "puppy_name")
-    private String puppyName; // 이름
+    private String puppyName; // 품종 ex) 푸들,리트리버 등등
 
     @Column(name = "puppy_type")
-    private String puppyType; // 종
+    private String puppyType; // 견종 ex) 실용견, 반려견 등등
 
     @Column(name = "img_url")
     private String imgUrl; // 이미지

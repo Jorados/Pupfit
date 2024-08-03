@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface WalkedNoteRepository extends JpaRepository<WalkedNote, Long> {
 
-    List<WalkedNote> findByUserPuppyId(Long userPuppyId);
+    List<WalkedNote> findByUserPuppyIdOrderByIdAsc(Long userPuppyId);
 
 }

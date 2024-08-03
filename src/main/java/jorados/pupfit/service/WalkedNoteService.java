@@ -43,7 +43,7 @@ public class WalkedNoteService {
         Map<Long,List<WalkedNoteDto>> walkedList = new HashMap<>();
 
         for(UserPuppyDto userPuppyDto : userPuppyDtoList){
-            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyId(userPuppyDto.getId());
+            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByIdAsc(userPuppyDto.getId());
 
             if(findWalkedNoteList.size() > 0){
                 List<WalkedNoteDto> findWalkedNoteDtoList = findWalkedNoteList.stream().map(findWalkedNote -> {

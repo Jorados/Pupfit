@@ -13,7 +13,7 @@
           <v-col cols="12">
             <p><strong>견종 :</strong> {{ puppy.puppyType }}</p>
             <br>
-            <p><strong>성격 :</strong> {{ puppy.personality }}</p>
+            <p><strong>특징 :</strong> {{ puppy.personality }}</p>
             <br>
             <p><strong>산책 가능 시간 :</strong> {{ puppy.walkLow }} ~ {{ puppy.walkHigh }}</p>
           </v-col>

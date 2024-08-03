@@ -17,7 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 @RequiredArgsConstructor
@@ -103,7 +105,7 @@ public class ProductInitializer {
                 .build();
 
         Puppy puppy6 = Puppy.builder()
-                .puppyName("골든 리트리벼")
+                .puppyName("골든 리트리버")
                 .puppyType("조렵견")
                 .imgUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Golden_retriever.jpg/480px-Golden_retriever.jpg")
                 .walkLow(walkLowTime)
@@ -211,31 +213,34 @@ public class ProductInitializer {
         UserPuppy findUserPuppy1 = userPuppyRepository.findById(1L).orElseThrow(() -> new CustomNotFoundException("산책 정보"));
         UserPuppy findUserPuppy2 = userPuppyRepository.findById(2L).orElseThrow(() -> new CustomNotFoundException("산책 정보"));
 
+        String walkedDate = "2023-08-01 10:30:00";
+        LocalDateTime parseWalkedDate = LocalDateTime.parse(walkedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
         WalkedNote walkedNote1 = WalkedNote.builder()
                 .walked(true)
                 .walkedContent("오늘은 푸들과 함께 산책을 했다.")
-                .walkedDate(walkLowTime)
+                .walkedDate(parseWalkedDate)
                 .userPuppy(findUserPuppy1)
                 .build();
 
         WalkedNote walkedNote2 = WalkedNote.builder()
                 .walked(true)
                 .walkedContent("내일은 푸들과 함께 산책을 했다.")
-                .walkedDate(walkLowTime)
+                .walkedDate(parseWalkedDate)
                 .userPuppy(findUserPuppy1)
                 .build();
 
         WalkedNote walkedNote4 = WalkedNote.builder()
                 .walked(true)
                 .walkedContent("오늘은 비숑과 함께 산책을 했다.")
-                .walkedDate(walkLowTime)
+                .walkedDate(parseWalkedDate)
                 .userPuppy(findUserPuppy2)
                 .build();
 
         WalkedNote walkedNote5 = WalkedNote.builder()
                 .walked(true)
                 .walkedContent("내일은 비숑과 함께 산책을 했다.")
-                .walkedDate(walkLowTime)
+                .walkedDate(parseWalkedDate)
                 .userPuppy(findUserPuppy2)
                 .build();
 

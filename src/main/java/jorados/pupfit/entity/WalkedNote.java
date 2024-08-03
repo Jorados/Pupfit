@@ -29,9 +29,8 @@ public class WalkedNote {
     @Column(name = "walked_note_id")
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
-    @Column(columnDefinition = "TIME")
-    private LocalTime walkedDate; // 산책 시간 ex) 10:30:00
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime walkedDate; // 산책 날짜,시간 ex) 2023-12-11 10:30:00
 
     private String walkedContent; // 산책 내용
 

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -17,8 +18,7 @@ public class WalkedNoteDto {
     private Long id;
 
 //    @NotBlank
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
-    private LocalTime walkedDate; // 산책 시간 ex) 2024-07-27 10:30:00
+    private LocalDateTime walkedDate; // 산책 시간 ex) 2024-07-27 10:30:00
 
 //    @NotBlank
     private String walkedContent;
