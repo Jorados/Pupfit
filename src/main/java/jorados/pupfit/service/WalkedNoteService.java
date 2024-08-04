@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,6 +77,20 @@ public class WalkedNoteService {
                 .walked(findWalkedNote.isWalked())
                 .walkedContent(findWalkedNote.getWalkedContent())
                 .walkedDate(findWalkedNote.getWalkedDate())
+                .build();
+        return walkedNoteDto;
+    }
+
+    // 산책 필요 상태를 알기위한 userPuppyId로 walked가 true이면서 walkedNote가 최신인것 1개 조회
+    public WalkedNoteDto readWalkedNoteByUserPuppyId(Long userPuppyId){
+        Optional<List<WalkedNote>> findWalkedNote = walkedNoteRepository.findWalkedNoteByUserPuppyId(userPuppyId);
+
+        if (findWalkedNote.isEmpty() || findWalkedNote.get().isEmpty()) {
+            throw new CustomNotFoundException("산책 필요상태를 조회하기 위한 산책 정보");
+        }
+
+        WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
+                .walkedDate(findWalkedNote.get().get(0).getWalkedDate())
                 .build();
         return walkedNoteDto;
     }

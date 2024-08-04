@@ -42,6 +42,14 @@ public class WalkedNoteController {
         return ResponseEntity.status(HttpStatus.OK).body(walkedNoteDtoList);
     }
 
+    // 특정 키우는 강아지에 대한 산책 최신 정보 -> 산책 필요 상태를 알기 위함.
+    @GetMapping("/read/userPuppy/{userPuppyId}")
+    public ResponseEntity<?> readWalkedNoteByUserPuppyId(@PathVariable("userPuppyId") Long userPuppyId) {
+        WalkedNoteDto walkedNoteDto = walkedNoteService.readWalkedNoteByUserPuppyId(userPuppyId);
+        return ResponseEntity.status(HttpStatus.OK).body(walkedNoteDto);
+    }
+
+
     // 상세 조회
     @GetMapping("/read/{walkedNoteId}")
     public ResponseEntity<?> readWalkedNoteById(@PathVariable("walkedNoteId") Long walkedNoteId) {
@@ -62,6 +70,8 @@ public class WalkedNoteController {
         walkedNoteService.updateWalkedNote(walkedNoteDto);
         return ResponseEntity.status(HttpStatus.OK).body("해당 산책 정보가 삭제 되었습니다.");
     }
+
+
 
 //    // 해당 walkedNoteId를 이용해서 puppy의 정보를 불러오는 api
 //    @GetMapping("/read/puppy/{walkedNoteId}")

@@ -14,37 +14,31 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from '@/api/axios';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    const router = useRouter();
-    const store = useStore();
+const router = useRouter();
+const store = useStore();
 
-    const username = ref('');
-    const password = ref('');
+const username = ref('');
+const password = ref('');
 
-    // async -> 이거를 사용하면 해당 함수를 Promis 객체를 반환하는 비동기 함수가 된다.
-    const login = async () => {
-      try {
-        const response = await axios.post('/login', {  // await -> async 내에서 사용가능, 비동기 함수를 결과값을 기다리고, 그 값으로 작업을 진행.
-          username: username.value,
-          password: password.value
-        });
-        const token = response.headers['authorization'];
-        store.dispatch('login', token);
-        router.push('/');
-      } catch (error) {
-        console.error(error);
-        alert('로그인 실패');
-      }
-    };
-
-    return { username, password, login };
+// async -> 이거를 사용하면 해당 함수를 Promise 객체를 반환하는 비동기 함수가 된다.
+const login = async () => {
+  try {
+    const response = await axios.post('/login', {  // await -> async 내에서 사용가능, 비동기 함수를 결과값을 기다리고, 그 값으로 작업을 진행.
+      username: username.value,
+      password: password.value
+    });
+    const token = response.headers['authorization'];
+    store.dispatch('login', token);
+    router.push('/');
+  } catch (error) {
+    console.error(error);
+    alert('로그인 실패');
   }
 };
 </script>

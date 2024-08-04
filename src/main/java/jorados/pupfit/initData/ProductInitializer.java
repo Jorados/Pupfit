@@ -213,34 +213,37 @@ public class ProductInitializer {
         UserPuppy findUserPuppy1 = userPuppyRepository.findById(1L).orElseThrow(() -> new CustomNotFoundException("산책 정보"));
         UserPuppy findUserPuppy2 = userPuppyRepository.findById(2L).orElseThrow(() -> new CustomNotFoundException("산책 정보"));
 
-        String walkedDate = "2023-08-01 10:30:00";
+        String walkedDate = "2024-08-01 10:30:00";
         LocalDateTime parseWalkedDate = LocalDateTime.parse(walkedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        String walkedDate2 = "2024-07-01 12:55:00";
+        LocalDateTime parseWalkedDate2 = LocalDateTime.parse(walkedDate2, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         WalkedNote walkedNote1 = WalkedNote.builder()
                 .walked(true)
-                .walkedContent("오늘은 푸들과 함께 산책을 했다.")
+                .walkedContent("푸들과 함께 산책을 했다.")
                 .walkedDate(parseWalkedDate)
                 .userPuppy(findUserPuppy1)
                 .build();
 
         WalkedNote walkedNote2 = WalkedNote.builder()
                 .walked(true)
-                .walkedContent("내일은 푸들과 함께 산책을 했다.")
+                .walkedContent("푸들과 함께 산책을 했다.")
                 .walkedDate(parseWalkedDate)
                 .userPuppy(findUserPuppy1)
                 .build();
 
         WalkedNote walkedNote4 = WalkedNote.builder()
-                .walked(true)
-                .walkedContent("오늘은 비숑과 함께 산책을 했다.")
-                .walkedDate(parseWalkedDate)
+                .walked(false)
+                .walkedContent("산책은 못했다 ㅠ")
+                .walkedDate(null)
                 .userPuppy(findUserPuppy2)
                 .build();
 
         WalkedNote walkedNote5 = WalkedNote.builder()
                 .walked(true)
-                .walkedContent("내일은 비숑과 함께 산책을 했다.")
-                .walkedDate(parseWalkedDate)
+                .walkedContent("비숑과 함께 산책을 했다.")
+                .walkedDate(parseWalkedDate2)
                 .userPuppy(findUserPuppy2)
                 .build();
 

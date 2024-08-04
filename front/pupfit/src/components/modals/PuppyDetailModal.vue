@@ -35,6 +35,7 @@ const props = defineProps({
   isOpen: Boolean,
   puppyId: Number
 });
+
 const dialogProps = computed(() => ({
   modelValue: props.isOpen,
 }));
