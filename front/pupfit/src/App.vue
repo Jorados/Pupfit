@@ -3,7 +3,7 @@
     <div class="welcome-message" v-if="isAuthenticated">
       <p class="welcome-text">안녕하세요, <span class="user-name">{{ nickname }}</span>님!</p>
       <p class="description">오늘도 즐거운 강아지 산책하세요.</p>
-      <v-btn @click="logout" variant="plain" size="sm" style="margin-top:5px">로그아웃</v-btn>
+      <v-btn color="#ce9191" @click="logout" variant="plain" size="sm" style="margin-top:5px">로그아웃</v-btn>
     </div>
     <div class="brand" v-if="isAuthenticated">
       PUPFIT
@@ -97,14 +97,14 @@ body {
 .brand {
   font-size: 2.5em;
   font-weight: bold;
-  color: #a6ced7;
+  color: #d7a6a6;
   padding-top: 30px;
   padding-bottom: 20px;
   text-align: center;
 }
 
 .user-name {
-  color: #a6ced7;
+  color: #d7a6a6;
 }
 
 .welcome-message {
@@ -117,7 +117,7 @@ body {
 
 
 .footer {
-  background-color: #a6ced7;
+  background-color: #d7a6a6;
   color: white;
   padding: 1rem;
   font-size: 0.9rem;

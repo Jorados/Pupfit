@@ -72,7 +72,7 @@ onMounted(async () => {
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #a6ced7;
+  background-color: #d7a6a6;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;

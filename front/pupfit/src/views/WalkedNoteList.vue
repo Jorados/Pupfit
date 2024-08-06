@@ -196,7 +196,7 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
-  background-color: #a6ced7;
+  background-color: #d7a6a6;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
