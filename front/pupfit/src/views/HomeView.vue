@@ -3,13 +3,13 @@
     <h3 style="margin-top: 50px;">관리 강아지</h3>
     <div class="puppy-list">
       <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.id)">
-
+      <div class="icon">
         <v-icon v-if="!puppyStatuses[puppy.id]" color="red" large>mdi-emoticon-angry-outline</v-icon>
         <v-icon v-else color="blue" large>mdi-emoticon-happy-outline</v-icon>
-
+      </div>
         <div class="puppy-details">
-          <h5 v-if="puppyStatuses[puppy.id]">기분 좋음</h5>
-          <h5 v-if="!puppyStatuses[puppy.id]">기분 안좋음</h5>
+<!--          <h5 v-if="puppyStatuses[puppy.id]">기분 좋음</h5>-->
+<!--          <h5 v-if="!puppyStatuses[puppy.id]">기분 안좋음</h5>-->
           <h5 style="color: #ce9191; margin-top: 5px; font-weight: bold; cursor: pointer;" class="puppy-name">{{ puppy.puppyPersonalName }}({{ puppy.id ? puppy.puppyName : '알 수 없는 강아지' }})</h5>
         </div>
       </div>
@@ -183,5 +183,7 @@ onMounted(() => {
   padding: 20px;
 }
 
-
+.icon{
+  margin-top: 20px;
+}
 </style>

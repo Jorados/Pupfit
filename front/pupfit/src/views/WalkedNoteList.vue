@@ -15,7 +15,7 @@
                 v-model="state.newLog.walked"
                 hide-details
                 label="산책 여부"
-                color="#a6ced7"
+                color="#d7a6a6"
             ></v-switch>
 
           </v-card-text>
