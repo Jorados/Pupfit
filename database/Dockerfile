@@ -1,4 +1,8 @@
-FROM ubuntu:latest
-LABEL authors="USER"
+FROM mysql:latest
 
-ENTRYPOINT ["top", "-b"]
+ENV MYSQL_DATABASE=pupfit
+ENV MYSQL_USER=myuser
+ENV MYSQL_ROOT_PASSWORD=mypassword
+ENV MYSQL_PASSWORD=mypassword
+
+EXPOSE 5432

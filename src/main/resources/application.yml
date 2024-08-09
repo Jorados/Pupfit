@@ -2,9 +2,13 @@ spring:
   application:
     name: Pupfit
   datasource:
-    url: jdbc:mysql://localhost:3306/pupfit?serverTimezone=UTC&characterEncoding=UTF-8
+#    url: jdbc:mysql://localhost:3306/pupfit?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: root
+#    password: cho980625
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-container:3306/pupfit
     username: root
-    password: cho980625
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
