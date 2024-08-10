@@ -1,0 +1,32 @@
+## docker compose를 쓸거면 기존에 이미지를 compose 설정이랑 맞게 바꿔주고 다시 빌드해놔야한다.
+services:
+  pupfit-database:
+    build: ./database  #이미지 없으면 해당경로 dockerfile 빌드
+    image: pupfit-database
+    restart: always
+    container_name: pupfit-database
+
+  pupfit-back:
+    build: .
+    image: pupfit-back
+    environment:
+      - DB_URL=pupfit-database
+      - DB_USERNAME=root
+      - DB_PASSWORD=1234
+      - DB_NAME=pupfit
+    depends_on:
+      - pupfit-database
+    restart: on-failure
+    container_name: pupfit-back
+
+  pupfit-front:
+    build: ./front/pupfit
+    image: pupfit-front
+    environment:
+      - BACKEND_HOST=pupfit-back
+    ports:
+      - 80:80
+    depends_on:
+      - pupfit-back
+    restart: on-failure
+    container_name: pupfit-front
