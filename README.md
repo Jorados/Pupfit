@@ -8,7 +8,7 @@
 ### 개발 환경 (개인 프로젝트)   
  - Back : Java / SpringBoot / Jpa / Mysql    
  - Front : Vue.js  
- - Infra : Aws Ec2 / Nginx / Docker / Github Action (CI/CD 파이프라인 구축)
+ - Infra : Aws Ec2 / Nginx / Docker / Github Action (CI/CD 파이프라인 구축, 3 Tier 아키텍처 구축)
 
 ### 개발 포커싱
  - Back : 인증,인가 / 에러처리 / 유효성 / Api 최적화 / 테스트 / 디버깅
