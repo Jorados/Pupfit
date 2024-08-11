@@ -8,6 +8,7 @@ on:
       - 'database/**'
       - 'front/**'
       - '.github/**'
+      - 'README.md'
 
 jobs:
   build-and-push:
