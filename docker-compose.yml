@@ -3,6 +3,8 @@ services:
   pupfit-database:
     build: ./database  #이미지 없으면 해당경로 dockerfile 빌드
     image: pupfit-database
+#    volumes:    # 현재 jpa hibernate ddl-auto 옵션이 create 이므로 지금은 볼륨 의미없음.
+#      - mysql-data:/var/lib/mysql
     restart: always
     container_name: pupfit-database
 
@@ -30,3 +32,6 @@ services:
       - pupfit-back
     restart: on-failure
     container_name: pupfit-front
+
+#volumes:
+#  mysql-data:

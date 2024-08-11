@@ -7,17 +7,6 @@ spring:
     password: ${DB_PASSWORD:cho980625}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-#    url: jdbc:mysql://localhost:3306/pupfit?serverTimezone=UTC&characterEncoding=UTF-8
-#    username: root
-#    password: cho980625
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-
-    ### 아직 db 도메인이름을 해당 mysql의 컨테이너이름과 똑같이 해줘야하는 약간의 불편함이 존재한다. 해당 pupfit-database 부분을 동적으로 진행할수는없을까?
-#    url: jdbc:mysql://pupfit-database:3306/pupfit
-#    username: root
-#    password: 1234
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     show-sql: true
     hibernate:
