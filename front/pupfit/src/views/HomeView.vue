@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="margin-top: 50px;">관리 강아지</h3>
+    <h3 style="margin-top: 50px;">관리하는 강아지</h3>
     <div class="puppy-list">
       <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.id)">
       <div class="icon">
