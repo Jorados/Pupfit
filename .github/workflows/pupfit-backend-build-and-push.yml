@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '**/*' ##모든파일과 폴더
     paths-ignore:
       - 'database/**'
       - 'front/**'
