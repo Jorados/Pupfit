@@ -82,7 +82,9 @@ public class WalkedNoteService {
     }
 
     // 산책 필요 상태를 알기위한 userPuppyId로 walked가 true이면서 walkedNote가 최신인것 1개 조회
+    // null 인 경우 처리도 해줘야한다.
     public WalkedNoteDto readWalkedNoteByUserPuppyId(Long userPuppyId){
+
         Optional<List<WalkedNote>> findWalkedNote = walkedNoteRepository.findWalkedNoteByUserPuppyId(userPuppyId);
 
         if (findWalkedNote.isEmpty() || findWalkedNote.get().isEmpty()) {
@@ -93,6 +95,11 @@ public class WalkedNoteService {
                 .walkedDate(findWalkedNote.get().get(0).getWalkedDate())
                 .build();
         return walkedNoteDto;
+    }
+
+    public int CountReadWalkedNoteByUserPuppyId(Long userPuppyId){
+        int count = walkedNoteRepository.CountReadWalkedNoteByUserPuppyId(userPuppyId);
+        return count;
     }
 
     // 수정

@@ -30,13 +30,14 @@ import PuppyCreateModal from "@/components/modals/PuppyCreateModal.vue";
 const puppies = ref([]);
 
 // 컴포넌트가 마운트되면 API 호출을 통해 데이터를 가져옵니다.
-onMounted(async () => {
-  try {
-    const response = await axios.get('/api/puppy/all');
-    puppies.value = response.data;
-  } catch (error) {
-    console.error('Error fetching puppy data:', error);
-  }
+onMounted(() => {
+  axios.get('/api/puppy/all')
+      .then(response => {
+        puppies.value = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching puppy data:', error);
+      });
 });
 
 const state = ref({

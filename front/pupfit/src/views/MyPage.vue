@@ -18,13 +18,14 @@ import { onMounted,ref } from "vue";
 import axios from "@/api/axios.js";
 
 const currentUser = ref([]);
-onMounted(async () => {
-  try {
-    const response = await axios.get('/api/user/read');
-    currentUser.value = response.data;
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-  }
+onMounted(() => {
+  axios.get('/api/user/read')
+      .then(response => {
+        currentUser.value = response.data;
+      })
+      .catch(error => {
+        console.error('정보 조회 에러 :', error);
+      });
 });
 
 </script>

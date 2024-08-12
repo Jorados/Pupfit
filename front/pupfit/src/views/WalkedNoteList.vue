@@ -65,15 +65,16 @@ onMounted(async () => {
   fetchWalkedNotes();
 });
 
-const fetchWalkedNotes = async () => {
-  try {
-    const response = await axios.get('/api/walkedNote/read');
-    console.log(response);
-    walkedNotes.value = formatWalkedNotes(response.data);
-  } catch (error) {
-    console.error('Failed to fetch walked notes:', error);
-  }
+const fetchWalkedNotes = () => {
+  axios.get('/api/walkedNote/read')
+      .then(response => {
+        walkedNotes.value = formatWalkedNotes(response.data);
+      })
+      .catch(error => {
+        console.error('조회 실패 :', error);
+      });
 };
+
 
 const formatWalkedNotes = (data) => {
   let notesArray = [];
@@ -112,34 +113,37 @@ const formatDateToISO = (date) => {
   return new Date(date).toISOString(); // ISO 8601 형식으로 변환
 };
 
-const addNote = async () => {
-  try {
-    // 서버에 POST 요청 보내기
-    await axios.post('/api/walkedNote/create', {
-      userPuppyId: state.selectedPuppyId,
-      walkedContent: state.newLog.note,
-      walked: state.newLog.walked,
-      walkedDate: formatDateToISO(state.walkedDate), // LocalDateTime 형식으로 전송
-    });
-    // 요청이 성공하면 기록을 새로 불러오고 다이얼로그 닫기
-    await fetchWalkedNotes();
-    closeDialog();
-    state.newLog.note = '';
-    state.walkedDate = null;
-    state.newLog.walked = false;
-  } catch (error) {
-    console.error('Failed to add note:', error);
-  }
+const addNote = () => {
+  axios.post('/api/walkedNote/create', {
+    userPuppyId: state.selectedPuppyId,
+    walkedContent: state.newLog.note,
+    walked: state.newLog.walked,
+    walkedDate: formatDateToISO(state.walkedDate), // LocalDateTime 형식으로 전송
+  })
+      .then(() => {
+        // 요청이 성공하면 기록을 새로 불러오고 다이얼로그 닫기
+        return fetchWalkedNotes();
+      })
+      .then(() => {
+        closeDialog();
+        state.newLog.note = '';
+        state.walkedDate = null;
+        state.newLog.walked = false;
+      })
+      .catch(error => {
+        console.error('생성 실패 :', error);
+      });
 };
 
-const deleteNote = async (walkedNoteId) => {
-  try {
-    console.log(walkedNoteId);
-    await axios.delete(`/api/walkedNote/delete/${walkedNoteId}`);
-    await fetchWalkedNotes();
-  } catch (error) {
-    console.error('Failed to delete note:', error);
-  }
+
+const deleteNote = (walkedNoteId) => {
+  axios.delete(`/api/walkedNote/delete/${walkedNoteId}`)
+      .then(() => {
+        return fetchWalkedNotes(); // fetchWalkedNotes는 Promise를 반환한다고 가정합니다.
+      })
+      .catch(error => {
+        console.error('삭제 실패 :', error);
+      });
 };
 
 </script>

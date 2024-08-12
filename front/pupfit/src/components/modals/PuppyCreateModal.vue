@@ -59,7 +59,7 @@
           <v-btn block size="large" color="#999999" @click="close">취소</v-btn>
         </v-col>
         <v-col cols="5">
-          <v-btn block size="large" color="#d7a6a6" @click="createPuppy">추가</v-btn>
+          <v-btn block style="color: white" size="large" color="#d7a6a6" @click="createPuppy">추가</v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -92,26 +92,27 @@ const state = reactive({
 });
 
 // 폼 제출 함수
-const createPuppy = async () => {
-  try{
-    await axios.post('/api/puppy/create',{
-      puppyName : state.puppyName,
-      puppyType : state.puppyType,
-      personality: state.personality,
-      imgUrl : state.imageUrl,
-      walkLow : state.walkLow,
-      walkHigh : state.walkHigh,
-    })
-    state.puppyName = '';
-    state.puppyType = '';
-    state.personality = '';
-    state.imageUrl = '';
-    state.walkLow = '';
-    state.walkHigh = '';
-    close();
-  } catch(error){
-    console.error('Failed to add puppy:', error);
-  }
+const createPuppy = () => {
+  axios.post('/api/puppy/create', {
+    puppyName: state.puppyName,
+    puppyType: state.puppyType,
+    personality: state.personality,
+    imgUrl: state.imageUrl,
+    walkLow: state.walkLow,
+    walkHigh: state.walkHigh,
+  })
+      .then(() => {
+        state.puppyName = '';
+        state.puppyType = '';
+        state.personality = '';
+        state.imageUrl = '';
+        state.walkLow = '';
+        state.walkHigh = '';
+        close();
+      })
+      .catch(error => {
+        console.error('puppy 생성 실패 :', error);
+      });
 };
 </script>
 

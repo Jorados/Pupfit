@@ -26,14 +26,14 @@ const onSelectChange = (value) =>{
   emit('updated-userPuppy-id', value);
 }
 
-onMounted(async () => {
-  try {
-    const response = await axios.get('/api/userPuppy/read');
-    userPuppies.value = response.data;
-    console.log(response);
-  } catch (error) {
-    console.error('Failed to fetch user puppies:', error);
-  }
+onMounted(() => {
+  axios.get('/api/userPuppy/read')
+      .then(response => {
+        userPuppies.value = response.data;
+      })
+      .catch(error => {
+        console.error('관리 강아지 조회 실패 :', error);
+      });
 });
 
 const formattedUserPuppies = computed(() => {
