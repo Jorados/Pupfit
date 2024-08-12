@@ -45,6 +45,11 @@ public class WalkedNoteController {
     // 특정 키우는 강아지에 대한 산책 최신 정보 -> 산책 필요 상태를 알기 위함.
     @GetMapping("/read/userPuppy/{userPuppyId}")
     public ResponseEntity<?> readWalkedNoteByUserPuppyId(@PathVariable("userPuppyId") Long userPuppyId) {
+        int count = walkedNoteService.CountReadWalkedNoteByUserPuppyId(userPuppyId);
+        if(count <= 0){
+            return ResponseEntity.status(HttpStatus.OK).body("userPuppy " + userPuppyId + "에 대한 산책정보 없음");
+        }
+
         WalkedNoteDto walkedNoteDto = walkedNoteService.readWalkedNoteByUserPuppyId(userPuppyId);
         return ResponseEntity.status(HttpStatus.OK).body(walkedNoteDto);
     }

@@ -59,7 +59,7 @@
           <v-btn block size="large" color="#999999" @click="close">취소</v-btn>
         </v-col>
         <v-col cols="5">
-          <v-btn block size="large" color="#d7a6a6" @click="createPuppy">추가</v-btn>
+          <v-btn block style="color: white" size="large" color="#d7a6a6" @click="createPuppy">추가</v-btn>
         </v-col>
       </v-row>
     </v-card>

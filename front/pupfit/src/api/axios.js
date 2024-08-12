@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
     // 주석하는 이유 -> nginx의 프록시를 이용해서 백엔드서버에 접근가능하게 할것임.
-    // baseURL: 'http://localhost:8080', // 기본 API 엔드포인트
+    baseURL: 'http://localhost:8080', // 기본 API 엔드포인트
     headers: {
         'Content-Type': 'application/json',
     },

@@ -19,4 +19,8 @@ public interface WalkedNoteRepository extends JpaRepository<WalkedNote, Long> {
             "where w.walked = true and w.userPuppy.id =:userPuppyId " +
             "order by w.walkedDate DESC")
     Optional<List<WalkedNote>> findWalkedNoteByUserPuppyId(@Param("userPuppyId") Long userPuppyId);
+
+
+    @Query("select count(w) from WalkedNote w where w.userPuppy.id =:userPuppyId")
+    int CountReadWalkedNoteByUserPuppyId(@Param("userPuppyId") Long userPuppyId);
 }
