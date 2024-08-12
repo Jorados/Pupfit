@@ -53,38 +53,44 @@ const puppies = ref([]);
 const walkedNotes = ref([]);
 const puppyStatuses = ref({});
 
-const fetchPuppies = async () => {
-  try {
-    const response = await axios.get('/api/userPuppy/read');
-    puppies.value = response.data;
+const fetchPuppies = () => {
+  axios.get('/api/userPuppy/read')
+      .then(response => {
+        puppies.value = response.data;
 
-    for (const puppy of puppies.value) {
-      try {
-        // 각 강아지의 산책 기록을 가져온다
-        const walkedNotesResponse = await axios.get(`/api/walkedNote/read/userPuppy/${puppy.id}`);
-        const walkedNotesData = walkedNotesResponse.data;
+        const requests = puppies.value.map(puppy => {
+          return axios.get(`/api/walkedNote/read/userPuppy/${puppy.id}`)
+              .then(walkedNotesResponse => {
+                const walkedNotesData = walkedNotesResponse.data;
 
-        if(walkedNotesData.walkedDate != null){
-          const latestDate = walkedNotesData.walkedDate;
-          puppyStatuses.value[puppy.id] = latestDate ? isWithinLastWeek(latestDate) : false;
-        }
-        else puppyStatuses.value[puppy.id] = false; // 기본적으로 false로 설정
-      } catch (error) {
-          console.error(error);
-      }
-    }
-  } catch (error) {
-    console.error('puppies 에러 :', error);
-  }
+                if (walkedNotesData.walkedDate != null) {
+                  const latestDate = walkedNotesData.walkedDate;
+                  puppyStatuses.value[puppy.id] = latestDate ? isWithinLastWeek(latestDate) : false;
+                } else {
+                  puppyStatuses.value[puppy.id] = false; // 기본적으로 false로 설정
+                }
+              })
+              .catch(error => {
+                console.error(`userPuppy ${puppy.id} 최신 산책정보 조회 에러 :`, error);
+              });
+        });
+        // Promise.all을 이용해서 모든 API 요청을 병렬로 수행
+        // 모든 walkedNotes 요청이 완료될 때까지 기다림
+        return Promise.all(requests);
+      })
+      .catch(error => {
+        console.error('puppies 에러 :', error);
+      });
 };
 
-const fetchWalkedNotes = async()=>{
-  try {
-    const response = await axios.get('/api/walkedNote/read');
-    walkedNotes.value = formatWalkedNotes(response.data);
-  } catch (error) {
-    console.error('walkedNote 에러 :', error);
-  }
+const fetchWalkedNotes = () => {
+  axios.get('/api/walkedNote/read')
+      .then(response => {
+        walkedNotes.value = formatWalkedNotes(response.data);
+      })
+      .catch(error => {
+        console.error('walkedNote 에러 :', error);
+      });
 };
 
 const formatWalkedNotes = (data) => {

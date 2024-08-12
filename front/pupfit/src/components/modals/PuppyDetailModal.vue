@@ -46,13 +46,14 @@ const closeModal = () => {
 };
 
 const puppy = ref([]);
-const fetchPuppyDetails = async (puppyId) => {
-  try {
-    const response = await axios.get(`/api/puppy/${puppyId}`);
-    puppy.value = response.data;
-  } catch (error) {
-    console.error('Failed to fetch puppy details:', error);
-  }
+const fetchPuppyDetails = (puppyId) => {
+  axios.get(`/api/puppy/${puppyId}`)
+      .then(response => {
+        puppy.value = response.data;
+      })
+      .catch(error => {
+        console.error('puppy 상세조회 실패 :', error);
+      });
 };
 
 // puppyId가 변경될 때마다 fetchPuppyDetails를 호출
