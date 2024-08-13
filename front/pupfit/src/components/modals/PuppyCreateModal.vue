@@ -40,6 +40,8 @@
                 <v-text-field
                     v-model="state.walkLow"
                     label="산책 최소 시간"
+                    type="time"
+                    format="HH:mm:ss"
                     required
                 ></v-text-field>
               </v-col>
@@ -47,6 +49,8 @@
                 <v-text-field
                     v-model="state.walkHigh"
                     label="산책 최대 시간"
+                    type="time"
+                    format="HH:mm:ss"
                     required
                 ></v-text-field>
               </v-col>
@@ -93,13 +97,19 @@ const state = reactive({
 
 // 폼 제출 함수
 const createPuppy = () => {
+
+  if (!state.puppyName || !state.puppyType || !state.personality || !state.imageUrl || !state.walkLow || !state.walkHigh) {
+    alert('모든 필드를 입력해주세요.');
+    return;
+  }
+
   axios.post('/api/puppy/create', {
     puppyName: state.puppyName,
     puppyType: state.puppyType,
     personality: state.personality,
     imgUrl: state.imageUrl,
-    walkLow: state.walkLow,
-    walkHigh: state.walkHigh,
+    walkLow: state.walkLow + ":00",
+    walkHigh: state.walkHigh + ":00",
   })
       .then(() => {
         state.puppyName = '';
