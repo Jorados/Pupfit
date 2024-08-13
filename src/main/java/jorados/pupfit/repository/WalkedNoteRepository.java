@@ -13,13 +13,18 @@ import java.util.Optional;
 public interface WalkedNoteRepository extends JpaRepository<WalkedNote, Long> {
 
     List<WalkedNote> findByUserPuppyIdOrderByWalkedDateDesc(Long userPuppyId);
-    List<WalkedNote> findPagedByUserPuppyIdOrderByWalkedDateDesc(Long userPuppyId, Pageable pageable);
+
+    @Query("select w " +
+            "from WalkedNote w " +
+            "where w.userPuppy.id = :userPuppyId " +
+            "order by w.walkedDate desc")
+    Page<WalkedNote> findPagedByUserPuppyIdOrderByWalkedDateDesc(@Param("userPuppyId") Long userPuppyId, Pageable pageable);
 
     // userPuppyId를 이용해서 최신 산책 시간 확인
     @Query("select w " +
             "from WalkedNote w " +
             "where w.walked = true and w.userPuppy.id =:userPuppyId " +
-            "order by w.walkedDate DESC")
+            "order by w.walkedDate desc")
     Optional<List<WalkedNote>> findWalkedNoteByUserPuppyId(@Param("userPuppyId") Long userPuppyId);
 
 

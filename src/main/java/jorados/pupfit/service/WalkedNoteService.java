@@ -9,6 +9,7 @@ import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.WalkedNoteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,16 +45,10 @@ public class WalkedNoteService {
         Map<Long,List<WalkedNoteDto>> walkedList = new HashMap<>();
 
         for(UserPuppyDto userPuppyDto : userPuppyDtoList){
-//            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
-            List<WalkedNote> findWalkedNoteList;
-            if (limit != null && limit > 0) {
-                Pageable pageable = PageRequest.of(0, limit);
-                findWalkedNoteList = walkedNoteRepository.findPagedByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId(), pageable);
-            } else {
-                findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
-            }
+            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
 
             if(findWalkedNoteList.size() > 0){
+
                 List<WalkedNoteDto> findWalkedNoteDtoList = findWalkedNoteList.stream().map(findWalkedNote -> {
                     WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
                             .id(findWalkedNote.getId())
@@ -73,6 +68,28 @@ public class WalkedNoteService {
 
         if(walkedList.isEmpty()){
             throw new CustomNotFoundException("산책 정보");
+        }
+
+        if (limit != null) {
+            Map<Long, List<WalkedNoteDto>> limitedWalkedList = new HashMap<>();
+            int count = 0;
+
+            for (Map.Entry<Long, List<WalkedNoteDto>> entry : walkedList.entrySet()) {
+                List<WalkedNoteDto> notes = entry.getValue();
+                List<WalkedNoteDto> limitedNotes = new ArrayList<>();
+                for (WalkedNoteDto note : notes) {
+                    if (count >= limit) {
+                        break;
+                    }
+                    limitedNotes.add(note);
+                    count++;
+                }
+                if (!limitedNotes.isEmpty()) {
+                    limitedWalkedList.put(entry.getKey(), limitedNotes);
+                }
+            }
+
+            return limitedWalkedList;
         }
 
         return walkedList;

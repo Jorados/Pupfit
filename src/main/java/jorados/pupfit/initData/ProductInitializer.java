@@ -247,9 +247,17 @@ public class ProductInitializer {
                 .userPuppy(findUserPuppy2)
                 .build();
 
+        WalkedNote walkedNote6 = WalkedNote.builder()
+                .walked(true)
+                .walkedContent("비숑과 함께 산책을 했다.22")
+                .walkedDate(parseWalkedDate2)
+                .userPuppy(findUserPuppy2)
+                .build();
+
         walkedNoteRepository.save(walkedNote1);
         walkedNoteRepository.save(walkedNote2);
         walkedNoteRepository.save(walkedNote4);
         walkedNoteRepository.save(walkedNote5);
+        walkedNoteRepository.save(walkedNote6);
     }
 }
