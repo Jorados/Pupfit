@@ -10,7 +10,25 @@
           <v-card-text>
             <UserPuppy @updated-userPuppy-id="updateUserPuppyId" />
             <v-text-field v-model="state.newLog.note" label="Note" required></v-text-field>
-            <v-text-field v-model="state.walkedDate" label="walkedDate" required placeholder="ex) 1999-09-22 01:30:30"></v-text-field>
+
+            <!-- Date Input -->
+            <v-text-field
+                v-model="state.walkedDate.date"
+                label="Date"
+                type="date"
+                required
+                placeholder="yyyy-mm-dd"
+            ></v-text-field>
+
+            <!-- Time Input -->
+            <v-text-field
+                v-model="state.walkedDate.time"
+                label="Time"
+                type="time"
+                required
+                placeholder="HH:MM"
+            ></v-text-field>
+
             <v-switch
                 v-model="state.newLog.walked"
                 hide-details
@@ -93,7 +111,10 @@ const state = reactive({
   dialog: false,
   showPuppyDetailModal: false,
   selectedPuppyId: null,
-  walkedDate: null,
+  walkedDate: {
+    date: null,
+    time: null
+  },
 })
 
 const openDialog = () => {
@@ -108,17 +129,22 @@ const updateUserPuppyId = (id) => {
   state.selectedPuppyId = id;
 };
 
-const formatDateToISO = (date) => {
-  if (!date) return null; // 날짜가 없을 경우 null 반환
-  return new Date(date).toISOString(); // ISO 8601 형식으로 변환
+const formatDateToISO = (date, time) => {
+  if (!date || !time) return null; // 날짜나 시간이 없을 경우 null 반환
+  return new Date(`${date}T${time}`).toISOString(); // ISO 8601 형식으로 변환
 };
 
 const addNote = () => {
+  if (!state.newLog.note || !state.walkedDate.date || !state.walkedDate.time || !state.selectedPuppyId) {
+    alert('모든 필드를 입력해주세요.'); // 필드가 비어 있을 때 알림 표시
+    return;
+  }
+
   axios.post('/api/walkedNote/create', {
     userPuppyId: state.selectedPuppyId,
     walkedContent: state.newLog.note,
     walked: state.newLog.walked,
-    walkedDate: formatDateToISO(state.walkedDate), // LocalDateTime 형식으로 전송
+    walkedDate: formatDateToISO(state.walkedDate.date, state.walkedDate.time), // LocalDateTime 형식으로 전송
   })
       .then(() => {
         // 요청이 성공하면 기록을 새로 불러오고 다이얼로그 닫기
@@ -127,7 +153,7 @@ const addNote = () => {
       .then(() => {
         closeDialog();
         state.newLog.note = '';
-        state.walkedDate = null;
+        state.walkedDate = { date: null, time: null };
         state.newLog.walked = false;
       })
       .catch(error => {

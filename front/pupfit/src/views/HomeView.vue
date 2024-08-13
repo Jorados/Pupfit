@@ -15,8 +15,22 @@
 
     <h3 style="margin-top: 15px;">최근 산책 일기</h3>
     <div class="note-container">
-      <v-row>
-        <v-col v-for="walkedNote in walkedNotes" :key="walkedNote.id">
+      <v-row class="note-row">
+        <!-- walkedNotes가 비어 있으면 "데이터가 없습니다"를 표시 -->
+        <v-col v-if="!walkedNotes || walkedNotes.length === 0">
+          <v-card class="note-card" variant="outlined">
+            <div class="note-body">
+              <v-card-text class="note-title">
+                <h5 class="note-null">
+                  데이터가 없습니다
+                </h5>
+              </v-card-text>
+            </div>
+          </v-card>
+        </v-col>
+
+        <!-- walkedNotes가 존재할 때 각 walkedNote를 표시 -->
+        <v-col v-else v-for="walkedNote in walkedNotes" :key="walkedNote.id">
           <v-card :to="{name: 'walkedNoteList'}" href="walkedNote" class="note-card" variant="outlined">
             <div class="note-header">
               <v-icon v-if="walkedNote.walked" color="primary darken-4" large>mdi-dog-service</v-icon>
@@ -27,7 +41,7 @@
                 <h5 style="color: #ce9191; font-weight: bold; cursor: pointer;">
                   {{ walkedNote.puppyPersonalName }} ({{ walkedNote.puppyName }})
                 </h5>
-                <br>{{ truncateText(walkedNote.walkedContent,10) }}
+                <br>{{ truncateText(walkedNote.walkedContent, 10) }}
               </v-card-text>
             </div>
             <div class="note-footer">
@@ -84,7 +98,8 @@ const fetchPuppies = () => {
 };
 
 const fetchWalkedNotes = () => {
-  axios.get('/api/walkedNote/read')
+  const params = { limit: 4 }; // 객체로 설정
+  axios.get('/api/walkedNote/read', {params})
       .then(response => {
         walkedNotes.value = formatWalkedNotes(response.data);
       })
@@ -140,6 +155,15 @@ onMounted(() => {
   justify-content: center;
 }
 
+.note-row{
+  display: inline-flex;
+}
+
+.note-null{
+  color: #ce9191;
+  font-weight: bold;
+  margin-top: 50px;
+}
 .puppy-item {
   display: flex;
   flex-direction: column;
@@ -188,6 +212,8 @@ onMounted(() => {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   height: 220px;
+  width: 300px;
+
 }
 
 .icon{

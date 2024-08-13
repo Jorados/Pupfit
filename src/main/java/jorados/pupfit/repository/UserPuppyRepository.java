@@ -10,5 +10,6 @@ public interface UserPuppyRepository extends JpaRepository<UserPuppy, Long> {
 
     UserPuppy findByUserAndPuppy(User user, Puppy puppy);
 
+
     List<UserPuppy> findByUser(User user);
 }
