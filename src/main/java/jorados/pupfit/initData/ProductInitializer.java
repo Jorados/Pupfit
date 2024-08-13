@@ -65,7 +65,7 @@ public class ProductInitializer {
                 .imgUrl("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT_6ekQ3BWIWBWoIcg7NgfLymv81hpvraSdDwfq28HWRrOt8yWE")
                 .walkLow(walkLowTime) // 최소시간
                 .walkHigh(walkHighTime) // 최대시간
-                .personality("활기차고, 적극적이며, 호기심이 많은 성격을 가지고 있습니다. 주인에게 매우 충실하며, 높은 지능과 교육성으로 인해 훈련이 쉽습니다.")
+                .personality("푸들(영어: poodle)은 개의 품종 중 하나이며, 프랑스의 국견이다. 과거의 푸들은 사냥개였다. 원산지는 독일이고, 프랑스 귀족 여성들에 의해 인기를 얻어 널리 퍼져나갔으며, 털이 길고 양털 모양으로 자란다. 털이 자주 엉키기 때문에 하루에 1회 이상 빗질은 필수이며, 털 빠짐이 적다. 털이 빨리 자라기 때문에 미용도 자주 해주어야 한다. 밝고 활발한 성격이 특징이며 굉장히 똑똑하다. 활동량이 많아서 산책을 자주 해주어야 하며, 훈련의 이해도가 좋다.[1][2]푸들은 세계 천재견 순위로 2위를 차지 하였다.[3]주인의 감정을 굉장히 많이 공유해서, 노인들에게는 남은 인생을 함께하자는 의미의 개로 많은 사랑을 받는다. 또한 푸들의 죽음에 바치는 비가라는 소설이 있을 정도로 푸들은 전세계적으로 사람들에게 아주 많은 사랑을 받고 있다.")
                 .build();
 
         Puppy puppy2 = Puppy.builder()
@@ -74,7 +74,7 @@ public class ProductInitializer {
                 .imgUrl("https://static.wixstatic.com/media/a27d24_f136357da1e54ff2a15ff3299e9de0f6~mv2.jpg/v1/fill/w_600,h_619,al_c,lg_1,q_85,enc_auto/a27d24_f136357da1e54ff2a15ff3299e9de0f6~mv2.jpg")
                 .walkLow(walkLowTime)
                 .walkHigh(walkHighTime)
-                .personality("활기차고, 적극적이며, 호기심이 많은 성격을 가지고 있습니다. 주인에게 매우 충실하며, 높은 지능과 교육성으로 인해 훈련이 쉽습니다.")
+                .personality("비숑 프리제(프랑스어: Bichon Frisé)는 개의 품종 중 하나다. 중세 불어로 비숑(프랑스어: bichon)은 작고 긴 털을 가진 개를 의미한다. 주로 흰색의 곱슬거리는 털을 가진 프랑스와 벨기에 그리고 스위스[1] 원산의 개로서, 곱슬한 털이 자라면서 얼굴이 동그란 형태가 되는 것이 특징이다. 견종의 성격은 독립심이 강하며 세심하고 활발하다고 알려져있으나, 모든 강아지가 그러하듯 개별적으로 다양한 성격을 가진 것으로 보인다. 동그란 얼굴과 까만 코와 눈이 아름답게 조화를 이루는 외모로 털이 곱슬거리고 아름다운 만큼 관리가 까다롭다. 식성이 엄청나고 활발한 성격탓에 흥분을 잘한다. 어릴 때는 집안을 아무 이유없이 미친듯이 뛰어다니는데, 이것을 비숑 타임이라고 한다. 비숑타임이 오는 이유는 놀이 후 급격하게 에너지가 상승, 산책을 자주 가지 못해 남아도는 에너지를 이로 소비하기 위해서다. 비숑의 수명은 보통 15년~16년이다. 소형견으로 분류되나 일반적인 초소형견과는 거리가 있다. 표준 체중은 5.4kg~8.2kg이며, 보통 도그쇼에는 암컷은 5kg대, 수컷은 6kg대가 많이 나오는 편이다.")
                 .build();
 
         Puppy puppy3 = Puppy.builder()
@@ -83,7 +83,7 @@ public class ProductInitializer {
                 .imgUrl("https://i.namu.wiki/i/7IJj6iEgr4a41vfl5vOyUGtHAoC2ZQZABnuNua26JeAXjThMcrjJuul8E0CWmAfVB_m_8e535REXuU47IxU2Cg.webp")
                 .walkLow(walkLowTime)
                 .walkHigh(walkHighTime)
-                .personality("활기차고, 적극적이며, 호기심이 많은 성격을 가지고 있습니다. 주인에게 매우 충실하며, 높은 지능과 교육성으로 인해 훈련이 쉽습니다.")
+                .personality("포메라니안(영어: Pomeranian)은 중앙유럽(오늘날 독일 북동부, 폴란드 북서부)에 있는 포메라니아 지역에서 유래된 스피츠 종류의 반려견이다. 작고 귀여운 외모와 복슬복슬한 털이 특징이며 털빠짐이 있다. 작은 크기 때문에 소형견로 분류되는데, 포메라니안은 대형 스피츠종 개인 독일 스피츠에서 유래되었다. 이 때문에 국제애견협회에서도 포메라니안을 독일 스피츠의 일종으로 구분했고, 많은 나라에서 츠베르크슈피츠(Zwergspitz, 난쟁이 스피츠라는 뜻)로 알려져 있다. 또는 핑핑 폼폼(Pom Pom)이라는 이름으로도 불린다.")
                 .build();
 
         Puppy puppy4 = Puppy.builder()

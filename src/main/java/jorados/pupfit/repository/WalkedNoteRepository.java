@@ -4,14 +4,16 @@ import jorados.pupfit.entity.WalkedNote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface WalkedNoteRepository extends JpaRepository<WalkedNote, Long> {
 
-    // 기본 read
-    List<WalkedNote> findByUserPuppyIdOrderByIdAsc(Long userPuppyId);
+    List<WalkedNote> findByUserPuppyIdOrderByWalkedDateDesc(Long userPuppyId);
+    List<WalkedNote> findPagedByUserPuppyIdOrderByWalkedDateDesc(Long userPuppyId, Pageable pageable);
 
     // userPuppyId를 이용해서 최신 산책 시간 확인
     @Query("select w " +

@@ -9,6 +9,8 @@ import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.WalkedNoteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,12 +39,19 @@ public class WalkedNoteService {
     }
 
     // 특정 사용자의 산책 기록 모두 조회
-    public Map<Long,List<WalkedNoteDto>> readAllWalkedNote(List<UserPuppyDto> userPuppyDtoList){
+    public Map<Long,List<WalkedNoteDto>> readAllWalkedNote(List<UserPuppyDto> userPuppyDtoList, Integer limit){
         // 각 유저-강아지 마다 여러개의 산책정보를 가질 수 있다.
         Map<Long,List<WalkedNoteDto>> walkedList = new HashMap<>();
 
         for(UserPuppyDto userPuppyDto : userPuppyDtoList){
-            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByIdAsc(userPuppyDto.getId());
+//            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
+            List<WalkedNote> findWalkedNoteList;
+            if (limit != null && limit > 0) {
+                Pageable pageable = PageRequest.of(0, limit);
+                findWalkedNoteList = walkedNoteRepository.findPagedByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId(), pageable);
+            } else {
+                findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
+            }
 
             if(findWalkedNoteList.size() > 0){
                 List<WalkedNoteDto> findWalkedNoteDtoList = findWalkedNoteList.stream().map(findWalkedNote -> {

@@ -35,9 +35,10 @@ public class WalkedNoteController {
 
     // 내가 쓴 일기 -> 모두 조회 (userId로)
     @GetMapping("/read")
-    public ResponseEntity<?> readWalkedNote(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<?> readWalkedNote(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                            @RequestParam(name = "limit", required = false) Integer limit) {
         List<UserPuppyDto> findUserPuppy = userPuppyService.readAllByUserId(principalDetails.getUser().getId());
-        Map<Long,List<WalkedNoteDto>> walkedNoteDtoList = walkedNoteService.readAllWalkedNote(findUserPuppy);
+        Map<Long,List<WalkedNoteDto>> walkedNoteDtoList = walkedNoteService.readAllWalkedNote(findUserPuppy, limit);
 
         return ResponseEntity.status(HttpStatus.OK).body(walkedNoteDtoList);
     }
@@ -53,7 +54,6 @@ public class WalkedNoteController {
         WalkedNoteDto walkedNoteDto = walkedNoteService.readWalkedNoteByUserPuppyId(userPuppyId);
         return ResponseEntity.status(HttpStatus.OK).body(walkedNoteDto);
     }
-
 
     // 상세 조회
     @GetMapping("/read/{walkedNoteId}")
