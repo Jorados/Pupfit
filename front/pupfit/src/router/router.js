@@ -4,7 +4,8 @@ import PuppyList from "@/views/PuppyList.vue";
 import WalkedNoteList from "@/views/WalkedNoteList.vue";
 import MyPage from "@/views/MyPage.vue";
 import UserLogin from "@/views/UserLogin.vue"; // UserLogin 뷰 추가
-import store from "@/store/store"; // Vuex 스토어 임포트 (로그인 상태 관리)
+import store from "@/store/store";
+import MyEdit from "@/views/MyEdit.vue"; // Vuex 스토어 임포트 (로그인 상태 관리)
 
 const routes = [
   {
@@ -34,6 +35,12 @@ const routes = [
     path: '/myPage',
     name: 'MyPage',
     component: MyPage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/myEdit',
+    name: 'MyEdit',
+    component: MyEdit,
     meta: { requiresAuth: true },
   }
 ]
