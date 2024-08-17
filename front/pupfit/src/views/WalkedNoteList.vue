@@ -35,13 +35,17 @@
                 label="산책 여부"
                 color="#d7a6a6"
             ></v-switch>
-
           </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue" @click="closeDialog">취소</v-btn>
-            <v-btn color="primary" @click="addNote">작성</v-btn>
-          </v-card-actions>
+
+          <v-row class="button-group" align="center" justify="center">
+            <v-col cols="6">
+              <v-btn block color="#999999" @click="closeDialog">취소</v-btn>
+            </v-col>
+            <v-col cols="6">
+              <v-btn block color="#d7a6a6" style="color: white;" @click="addNote">작성</v-btn>
+            </v-col>
+          </v-row>
+
         </div>
       </v-card>
     </transition>
@@ -177,6 +181,10 @@ const deleteNote = (walkedNoteId) => {
 
 
 <style scoped>
+.button-group{
+  margin: 1rem;
+}
+
 .walked-note-card {
   width: 700px;
   margin: 15px;

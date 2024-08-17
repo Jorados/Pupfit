@@ -1,6 +1,11 @@
 <template>
-  <div class="container" style="max-width: 1300px">
-    <h3 class="title">강아지 목록</h3>
+  <div class="container" >
+
+    <div class="">
+      <h3 class="title">강아지 목록</h3>
+
+    </div>
+
     <div class="card-container">
       <!-- puppies 배열을 반복하여 각 Puppy 정보를 카드로 표시합니다. -->
       <div v-for="puppy in puppies" :key="puppy.id" class="card" @click="openPuppyDetailModal(puppy.id)">
@@ -14,7 +19,7 @@
     <v-btn class="add-puppy-btn" @click="openPuppyCreateModal()">강아지 추가하기</v-btn>
   </div>
 
-  <PuppyDetailModal :isOpen="state.showPuppyDetailModal" :puppyId="state.selectedPuppyId"  @update:isOpen="state.showPuppyDetailModal = $event" />
+  <PuppyDetailModal :deleteButton="true" :isOpen="state.showPuppyDetailModal" :puppyId="state.selectedPuppyId"  @update:isOpen="state.showPuppyDetailModal = $event"  @removed-puppy="fetchPuppy"/>
   <PuppyCreateModal :isOpen2="state.showPuppyCreateModal" @update:isOpen2="state.showPuppyCreateModal = $event"/>
 </template>
 
@@ -31,6 +36,10 @@ const puppies = ref([]);
 
 // 컴포넌트가 마운트되면 API 호출을 통해 데이터를 가져옵니다.
 onMounted(() => {
+  fetchPuppy();
+});
+
+const fetchPuppy = () => {
   axios.get('/api/puppy/all')
       .then(response => {
         puppies.value = response.data;
@@ -38,7 +47,7 @@ onMounted(() => {
       .catch(error => {
         console.error('Error fetching puppy data:', error);
       });
-});
+}
 
 const state = ref({
   selectedPuppyId: null,
@@ -67,6 +76,7 @@ function truncateText(text, length) {
 <style scoped>
 .container {
   padding: 20px;
+  max-width: 1300px;
 }
 
 .title {
@@ -120,11 +130,7 @@ function truncateText(text, length) {
   flex-grow: 1;
 }
 
-.card-title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+
 
 .card-type, .card-personality, .card-walk-time {
   margin: 0.5rem 0;

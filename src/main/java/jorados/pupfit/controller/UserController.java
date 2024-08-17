@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jorados.pupfit.config.auth.PrincipalDetails;
 import jorados.pupfit.dto.UserDto;
 import jorados.pupfit.dto.request.UserLoginDto;
+import jorados.pupfit.dto.request.UserPasswordRequest;
 import jorados.pupfit.dto.request.UserRequest;
 import jorados.pupfit.dto.response.UserResponse;
 import jorados.pupfit.entity.User;
@@ -45,6 +46,17 @@ public class UserController {
     public ResponseEntity<?> readAllUser(){
         List<UserDto> findUsers = userService.readAllUser();
         return ResponseEntity.status(HttpStatus.OK).body(findUsers);
+    }
+
+    // 패스워드 일치 불일치 확인
+    @PostMapping("/password")
+    public ResponseEntity<?> findPassword(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                          @RequestBody UserPasswordRequest userPasswordRequest){
+        User findUser = principalDetails.getUser();
+
+        boolean isPasswordValid = userService.checkPassword(findUser, userPasswordRequest.getPassword());
+        if (isPasswordValid) return ResponseEntity.status(HttpStatus.OK).body("비밀번호 일치");
+        else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 불일치");
     }
 
     // 수정

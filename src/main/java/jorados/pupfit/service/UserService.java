@@ -67,11 +67,17 @@ public class UserService {
                 .build();
     }
 
+    // 회원 비밀번호 조회
+    public Boolean checkPassword(User user, String password){
+        return bCryptPasswordEncoder.matches(password, user.getPassword());
+    }
+
     // 회원 정보 수정
     @Transactional
     public void updateUser(Long userId, UserRequest userRequest){
         User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
-        findUser.edit(userRequest);
+        String encodePassword = bCryptPasswordEncoder.encode(userRequest.getPassword());
+        findUser.edit(userRequest,encodePassword);
     }
 
     // 회원 삭제
