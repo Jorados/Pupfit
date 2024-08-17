@@ -19,6 +19,9 @@
     </footer>
   </div>
 
+  <div class="my-loader" v-show="loading">
+    <Loading />
+  </div>
 </template>
 
 <script setup>
@@ -27,9 +30,12 @@ import { useStore } from 'vuex';
 import NavBar from "@/components/NavBar.vue";
 import { useRouter } from 'vue-router';
 import axios from '@/api/axios';
+import Loading from "@/components/Loading.vue";
 
 const store = useStore();
 const router = useRouter();
+const loading = ref(true);
+
 const isAuthenticated = computed(() =>{
   return store.getters.isAuthenticated;
 });
@@ -50,11 +56,29 @@ onMounted(async () => {
       console.error('Error fetching user info:', error);
     }
   }
+
+  setTimeout(() => {
+    loading.value = false;
+  }, 500);
 });
+
 </script>
 
 
 <style>
+.my-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 html,
 body {
   height: 100%;

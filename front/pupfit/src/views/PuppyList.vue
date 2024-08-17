@@ -1,6 +1,11 @@
 <template>
-  <div class="container" style="max-width: 1300px">
-    <h3 class="title">강아지 목록</h3>
+  <div class="container" >
+
+    <div class="">
+      <h3 class="title">강아지 목록</h3>
+
+    </div>
+
     <div class="card-container">
       <!-- puppies 배열을 반복하여 각 Puppy 정보를 카드로 표시합니다. -->
       <div v-for="puppy in puppies" :key="puppy.id" class="card" @click="openPuppyDetailModal(puppy.id)">
@@ -67,6 +72,7 @@ function truncateText(text, length) {
 <style scoped>
 .container {
   padding: 20px;
+  max-width: 1300px;
 }
 
 .title {
@@ -120,11 +126,7 @@ function truncateText(text, length) {
   flex-grow: 1;
 }
 
-.card-title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+
 
 .card-type, .card-personality, .card-walk-time {
   margin: 0.5rem 0;
