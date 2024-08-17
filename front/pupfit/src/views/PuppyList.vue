@@ -19,7 +19,7 @@
     <v-btn class="add-puppy-btn" @click="openPuppyCreateModal()">강아지 추가하기</v-btn>
   </div>
 
-  <PuppyDetailModal :isOpen="state.showPuppyDetailModal" :puppyId="state.selectedPuppyId"  @update:isOpen="state.showPuppyDetailModal = $event" />
+  <PuppyDetailModal :deleteButton="true" :isOpen="state.showPuppyDetailModal" :puppyId="state.selectedPuppyId"  @update:isOpen="state.showPuppyDetailModal = $event"  @removed-puppy="fetchPuppy"/>
   <PuppyCreateModal :isOpen2="state.showPuppyCreateModal" @update:isOpen2="state.showPuppyCreateModal = $event"/>
 </template>
 
@@ -36,6 +36,10 @@ const puppies = ref([]);
 
 // 컴포넌트가 마운트되면 API 호출을 통해 데이터를 가져옵니다.
 onMounted(() => {
+  fetchPuppy();
+});
+
+const fetchPuppy = () => {
   axios.get('/api/puppy/all')
       .then(response => {
         puppies.value = response.data;
@@ -43,7 +47,7 @@ onMounted(() => {
       .catch(error => {
         console.error('Error fetching puppy data:', error);
       });
-});
+}
 
 const state = ref({
   selectedPuppyId: null,

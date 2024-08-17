@@ -2,7 +2,7 @@
   <div>
     <h3 style="margin-top: 50px;">관리하는 강아지</h3>
     <div class="puppy-list">
-      <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.id)">
+      <div v-for="puppy in puppies" :key="puppy.id" class="puppy-item" @click="openPuppyDetailModal(puppy.puppyId)">
       <div class="icon">
         <v-icon v-if="!puppyStatuses[puppy.id]" color="red" large>mdi-emoticon-angry-outline</v-icon>
         <v-icon v-else color="blue" large>mdi-emoticon-happy-outline</v-icon>
