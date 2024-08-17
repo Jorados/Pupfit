@@ -11,9 +11,9 @@
  - Infra : Aws Ec2 / Nginx / Docker / Github Action (CI/CD 파이프라인 구축, 3 Tier 아키텍처 구축)
 
 ### 개발 포커싱
- - Back : 인증,인가 / 에러처리 / 유효성 / Api 최적화 / 테스트 / 디버깅
- - Front : Vue.js 익히기
- - Infra : dockerfile, docker compose 완벽 마스터 / Github Action -> CI 구축
+ - Back : 인증,인가 / 에러처리 / 유효성 / Api 최적화 / 디버깅
+ - Front : Vue3
+ - Infra : Dockerfile, Docker compose, Github Actions -> CI/CD 파이프라인 구축
 
 <details>
   <summary>
