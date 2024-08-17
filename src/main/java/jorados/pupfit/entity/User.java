@@ -53,8 +53,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserPuppy> user_puppy;
 
-    public void edit(UserRequest userRequest){
-        this.gender = userRequest.getGender();
+    public void edit(UserRequest userRequest,String endcodePassword){
         this.nickname = userRequest.getNickname();
+        this.password = endcodePassword;
     }
 }

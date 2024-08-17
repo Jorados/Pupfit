@@ -16,6 +16,7 @@ public class UserRequest {
     @NotBlank
     private String nickname; // 닉네임
 
-    @NotNull
     private Gender gender; // 성별 ("M","W")
+
+    private String password;
 }
