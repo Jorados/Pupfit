@@ -3,9 +3,11 @@ package jorados.pupfit.controller;
 import jorados.pupfit.config.auth.PrincipalDetails;
 import jorados.pupfit.dto.UserPuppyDto;
 import jorados.pupfit.dto.WalkedNoteDto;
+import jorados.pupfit.dto.response.ResponseWalkedNote;
 import jorados.pupfit.error.CustomNotFoundException;
 import jorados.pupfit.service.UserPuppyService;
 import jorados.pupfit.service.WalkedNoteService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,11 +38,17 @@ public class WalkedNoteController {
     // 내가 쓴 일기 -> 모두 조회 (userId로)
     @GetMapping("/read")
     public ResponseEntity<?> readWalkedNote(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                            @RequestParam(name = "limit", required = false) Integer limit) {
-        List<UserPuppyDto> findUserPuppy = userPuppyService.readAllByUserId(principalDetails.getUser().getId());
-        Map<Long,List<WalkedNoteDto>> walkedNoteDtoList = walkedNoteService.readAllWalkedNote(findUserPuppy, limit);
+                                            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                            @RequestParam(name = "size", required = false, defaultValue = "20") Integer size) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(walkedNoteDtoList);
+        // 기존 쿼리 -> 5번
+        // List<UserPuppyDto> findUserPuppy = userPuppyService.readAllByUserId(principalDetails.getUser().getId());
+        // Map<Long,List<WalkedNoteDto>> walkedNoteDtoList = walkedNoteService.readAllWalkedNote(findUserPuppy, limit);
+
+        // 쿼리를 최적화 ToOne관계 fetch join 사용 -> 1번
+        List<WalkedNoteDto> walkedNoteDtoList = walkedNoteService.readAllWalkedNote(principalDetails.getUser().getId(), page, size);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseWalkedNote<>(walkedNoteDtoList, true));
     }
 
     // 특정 키우는 강아지에 대한 산책 최신 정보 -> 산책 필요 상태를 알기 위함.
