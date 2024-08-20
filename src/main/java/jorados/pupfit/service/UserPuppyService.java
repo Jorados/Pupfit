@@ -40,7 +40,9 @@ public class UserPuppyService {
     // 모두 조회 ( 회원 정보로만 정회 )
     public List<UserPuppyDto> readAllByUserId(Long userId) {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
-        List<UserPuppy> findUserPuppy = userPuppyRepository.findByUser(findUser);
+
+        // fetch join으로 sql 최적화 N번->1번
+        List<UserPuppy> findUserPuppy = userPuppyRepository.findUserPuppyWithPuppyByUser(findUser);
 
         if(findUserPuppy.isEmpty()){
             throw new CustomNotFoundException("유저-강아지 정보");
@@ -60,7 +62,10 @@ public class UserPuppyService {
 
     // 특정 데이터 조회 ( 회원아이디랑 강아지아이디랑 다 필요 )
     public UserPuppyDto readById(Long userPuppyId) {
-        UserPuppy findUserPuppy = userPuppyRepository.findById(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보"));
+
+        // fetch join으로 sql 최적화 N번->1번
+        UserPuppy findUserPuppy = userPuppyRepository.findUserPuppyWithUserAndPuppyByUserPuppyId(userPuppyId).orElseThrow(() -> new CustomNotFoundException("유저-강아지 정보"));
+
         UserPuppyDto userPuppyDto = UserPuppyDto.builder()
                 .puppyId(findUserPuppy.getPuppy().getId())
                 .userId(findUserPuppy.getUser().getId())

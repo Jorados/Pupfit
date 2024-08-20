@@ -40,60 +40,84 @@ public class WalkedNoteService {
     }
 
     // 특정 사용자의 산책 기록 모두 조회
-    public Map<Long,List<WalkedNoteDto>> readAllWalkedNote(List<UserPuppyDto> userPuppyDtoList, Integer limit){
-        // 각 유저-강아지 마다 여러개의 산책정보를 가질 수 있다.
-        Map<Long,List<WalkedNoteDto>> walkedList = new HashMap<>();
+//    public Map<Long,List<WalkedNoteDto>> readAllWalkedNote(List<UserPuppyDto> userPuppyDtoList, Integer limit){
+//        // 각 유저-강아지 마다 여러개의 산책정보를 가질 수 있다.
+//        Map<Long,List<WalkedNoteDto>> walkedList = new HashMap<>();
+//
+//        for(UserPuppyDto userPuppyDto : userPuppyDtoList){
+//            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
+//
+//            if(findWalkedNoteList.size() > 0){
+//
+//                List<WalkedNoteDto> findWalkedNoteDtoList = findWalkedNoteList.stream().map(findWalkedNote -> {
+//                    WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
+//                            .id(findWalkedNote.getId())
+//                            .walked(findWalkedNote.isWalked())
+//                            .walkedContent(findWalkedNote.getWalkedContent())
+//                            .walkedDate(findWalkedNote.getWalkedDate())
+//                            .userPuppyId(findWalkedNote.getUserPuppy().getId())
+//                            .puppyName(userPuppyDto.getPuppyName())
+//                            .puppyPersonalName(userPuppyDto.getPuppyPersonalName())
+//                            .build();
+//                    return walkedNoteDto;
+//                }).collect(Collectors.toList());
+//
+//                walkedList.put(userPuppyDto.getId(),findWalkedNoteDtoList);
+//            }
+//        }
+//
+//        if(walkedList.isEmpty()){
+//            throw new CustomNotFoundException("산책 정보");
+//        }
+//
+//        if (limit != null) {
+//            Map<Long, List<WalkedNoteDto>> limitedWalkedList = new HashMap<>();
+//            int count = 0;
+//
+//            for (Map.Entry<Long, List<WalkedNoteDto>> entry : walkedList.entrySet()) {
+//                List<WalkedNoteDto> notes = entry.getValue();
+//                List<WalkedNoteDto> limitedNotes = new ArrayList<>();
+//                for (WalkedNoteDto note : notes) {
+//                    if (count >= limit) {
+//                        break;
+//                    }
+//                    limitedNotes.add(note);
+//                    count++;
+//                }
+//                if (!limitedNotes.isEmpty()) {
+//                    limitedWalkedList.put(entry.getKey(), limitedNotes);
+//                }
+//            }
+//
+//            return limitedWalkedList;
+//        }
+//
+//        return walkedList;
+//    }
 
-        for(UserPuppyDto userPuppyDto : userPuppyDtoList){
-            List<WalkedNote> findWalkedNoteList = walkedNoteRepository.findByUserPuppyIdOrderByWalkedDateDesc(userPuppyDto.getId());
+    public List<WalkedNoteDto> readAllWalkedNote(Long userId, Integer page, Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<WalkedNote> walkedNotes = walkedNoteRepository.findWalkedNoteWithUserPuppyAndPuppyAndUserByUserId(userId, pageable);
 
-            if(findWalkedNoteList.size() > 0){
+        List<WalkedNoteDto> walkedNotesDto = walkedNotes.stream().map(walkedNote -> {
 
-                List<WalkedNoteDto> findWalkedNoteDtoList = findWalkedNoteList.stream().map(findWalkedNote -> {
-                    WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
-                            .id(findWalkedNote.getId())
-                            .walked(findWalkedNote.isWalked())
-                            .walkedContent(findWalkedNote.getWalkedContent())
-                            .walkedDate(findWalkedNote.getWalkedDate())
-                            .userPuppyId(findWalkedNote.getUserPuppy().getId())
-                            .puppyName(userPuppyDto.getPuppyName() )
-                            .puppyPersonalName(userPuppyDto.getPuppyPersonalName())
-                            .build();
-                    return walkedNoteDto;
-                }).collect(Collectors.toList());
+            WalkedNoteDto walkedNoteDto = WalkedNoteDto.builder()
+                    .id(walkedNote.getId())
+                    .walked(walkedNote.isWalked())
+                    .walkedContent(walkedNote.getWalkedContent())
+                    .walkedDate(walkedNote.getWalkedDate())
+                    .userPuppyId(walkedNote.getUserPuppy().getId())
+                    .puppyName(walkedNote.getUserPuppy().getPuppy().getPuppyName())
+                    .puppyPersonalName(walkedNote.getUserPuppy().getPuppyPersonalName())
+                    .build();
+            return walkedNoteDto;
 
-                walkedList.put(userPuppyDto.getId(),findWalkedNoteDtoList);
-            }
-        }
+        }).collect(Collectors.toList());
 
-        if(walkedList.isEmpty()){
-            throw new CustomNotFoundException("산책 정보");
-        }
-
-        if (limit != null) {
-            Map<Long, List<WalkedNoteDto>> limitedWalkedList = new HashMap<>();
-            int count = 0;
-
-            for (Map.Entry<Long, List<WalkedNoteDto>> entry : walkedList.entrySet()) {
-                List<WalkedNoteDto> notes = entry.getValue();
-                List<WalkedNoteDto> limitedNotes = new ArrayList<>();
-                for (WalkedNoteDto note : notes) {
-                    if (count >= limit) {
-                        break;
-                    }
-                    limitedNotes.add(note);
-                    count++;
-                }
-                if (!limitedNotes.isEmpty()) {
-                    limitedWalkedList.put(entry.getKey(), limitedNotes);
-                }
-            }
-
-            return limitedWalkedList;
-        }
-
-        return walkedList;
+        return walkedNotesDto;
     }
+
+
 
     // 특정 산책 기록 조회
     public WalkedNoteDto readWalkedNote(Long walkedNoteId) {
