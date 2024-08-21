@@ -9,6 +9,8 @@ import jorados.pupfit.repository.PuppyRepository;
 import jorados.pupfit.repository.UserPuppyRepository;
 import jorados.pupfit.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,11 +40,11 @@ public class UserPuppyService {
     }
 
     // 모두 조회 ( 회원 정보로만 정회 )
-    public List<UserPuppyDto> readAllByUserId(Long userId) {
+    public List<UserPuppyDto> readAllByUserId(Long userId, Pageable pageable) {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new CustomNotFoundException("유저 정보"));
 
         // fetch join으로 sql 최적화 N번->1번
-        List<UserPuppy> findUserPuppy = userPuppyRepository.findUserPuppyWithPuppyByUser(findUser);
+        Page<UserPuppy> findUserPuppy = userPuppyRepository.findUserPuppyWithPuppyByUser(findUser,pageable);
 
         if(findUserPuppy.isEmpty()){
             throw new CustomNotFoundException("유저-강아지 정보");

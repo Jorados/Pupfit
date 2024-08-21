@@ -10,6 +10,8 @@ import jorados.pupfit.service.UserPuppyService;
 import jorados.pupfit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +39,12 @@ public class UserPuppyController {
 
     // userId로 데이터 찾기
     @GetMapping("/read")
-    public ResponseEntity<?> readUserPuppy(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        List<UserPuppyDto> findUserPuppy = userPuppyService.readAllByUserId(principalDetails.getUser().getId());
+    public ResponseEntity<?> readUserPuppy(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                           @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                           @RequestParam(name = "size", required = false, defaultValue = "20") Integer size){
+
+        Pageable pageable = PageRequest.of(page, size);
+        List<UserPuppyDto> findUserPuppy = userPuppyService.readAllByUserId(principalDetails.getUser().getId(), pageable);
         return ResponseEntity.status(HttpStatus.OK).body(findUserPuppy);
     }
 
