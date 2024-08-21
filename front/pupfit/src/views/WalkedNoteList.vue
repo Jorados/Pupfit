@@ -90,7 +90,8 @@ onMounted(async () => {
 const fetchWalkedNotes = () => {
   axios.get('/api/walkedNote/read')
       .then(response => {
-        walkedNotes.value = formatWalkedNotes(response.data);
+        // 응답 데이터가 배열이므로 그대로 사용
+        walkedNotes.value = response.data.data; // 응답의 "data" 배열에 접근
       })
       .catch(error => {
         console.error('조회 실패 :', error);
@@ -98,14 +99,14 @@ const fetchWalkedNotes = () => {
 };
 
 
-const formatWalkedNotes = (data) => {
-  let notesArray = [];
-  // data가 Map 형태라면, 이를 배열로 변환
-  for (const notes of Object.values(data)) {
-    notesArray = notesArray.concat(notes);
-  }
-  return notesArray;
-};
+// const formatWalkedNotes = (data) => {
+//   let notesArray = [];
+//   // data가 Map 형태라면, 이를 배열로 변환
+//   for (const notes of Object.values(data)) {
+//     notesArray = notesArray.concat(notes);
+//   }
+//   return notesArray;
+// };
 
 const state = reactive({
   newLog: {

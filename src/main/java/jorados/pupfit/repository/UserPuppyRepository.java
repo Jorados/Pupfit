@@ -4,6 +4,8 @@ import java.util.*;
 import jorados.pupfit.entity.Puppy;
 import jorados.pupfit.entity.User;
 import jorados.pupfit.entity.UserPuppy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,7 @@ public interface UserPuppyRepository extends JpaRepository<UserPuppy, Long> {
             " from UserPuppy up" +
             " join fetch up.puppy p" +
             " where up.user = :user")
-    List<UserPuppy> findUserPuppyWithPuppyByUser(@Param("user") User user);
+    Page<UserPuppy> findUserPuppyWithPuppyByUser(@Param("user") User user, Pageable pageable);
 
 
     @Query("select up" +

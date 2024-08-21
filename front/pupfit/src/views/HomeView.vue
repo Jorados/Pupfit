@@ -68,7 +68,11 @@ const walkedNotes = ref([]);
 const puppyStatuses = ref({});
 
 const fetchPuppies = () => {
-  axios.get('/api/userPuppy/read')
+  const params = {
+    page: 0,
+    size: 4
+  };
+  axios.get('/api/userPuppy/read' , {params})
       .then(response => {
         puppies.value = response.data;
 
@@ -98,23 +102,17 @@ const fetchPuppies = () => {
 };
 
 const fetchWalkedNotes = () => {
-  const params = { limit: 4 }; // 객체로 설정
+  const params = {
+    page: 0,
+    size: 4
+  }; // 객체로 설정
   axios.get('/api/walkedNote/read', {params})
       .then(response => {
-        walkedNotes.value = formatWalkedNotes(response.data);
+        walkedNotes.value = response.data.data;
       })
       .catch(error => {
         console.error('walkedNote 에러 :', error);
       });
-};
-
-const formatWalkedNotes = (data) => {
-  let notesArray = [];
-  // data가 Map 형태라면, 이를 배열로 변환
-  for (const notes of Object.values(data)) {
-    notesArray = notesArray.concat(notes);
-  }
-  return notesArray;
 };
 
 const state = ref({
