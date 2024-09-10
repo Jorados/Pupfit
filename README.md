@@ -17,28 +17,6 @@
 
 <details>
   <summary>
-    <h2 id="3.5">진행상황 (2024-08-11)</h2>
-  </summary>
-   <li>80% 이상 완료</li>
-   <li>github actions를 이용한 ci 파이프라인 구축완료 , cd 파이프라인은 docker-compose를 이용할 것임 -> 계획했던 ci/cd 파이프라인 구축 완료</li>
-   <li>master 브랜치에 커밋에 대한 트리거가 설정되어있어서 브랜치를 하나 더 만들까 고민.</li>
-   <li>나머지 애플리케이션 보수작업, 에러 잡는 작업 진행 하면서 마무리 할 예정</li>
-  <div>
-   <br>
-    <img src="https://github.com/user-attachments/assets/475004c3-5e9d-47fa-a63c-bd8331c99b69" alt="DockerHub Image">
-  </div>
-  <div>
-   <br>
-    <img src="https://github.com/user-attachments/assets/1b03360d-462e-43f0-8e15-d7c7737133d8" alt="DockerHub Image">
-  </div>
-  <div>
-   <br>
-    <img src="https://github.com/user-attachments/assets/45d986ec-5bb9-437d-91de-4784965f1ad1" alt="DockerHub Image">
-  </div>
-</details>
-
-<details>
-  <summary>
     <h2 id="3.5">Infra</h2>
   </summary>
   <div>
